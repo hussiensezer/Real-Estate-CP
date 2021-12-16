@@ -127,7 +127,7 @@ class ApartmentController extends Controller
             if($request->hasFile('images')) {
                   foreach ($request->images as $image) {
                       $attachment =  new Attachment();
-                      $attachment->path = $this->imageStore($image,"media",'images' );
+                      $attachment->path = $this->imageStore($image,"gallery",'images' );
                       $attachment->type = 'image';
                       $apartment->images()->save($attachment);
 
@@ -136,7 +136,7 @@ class ApartmentController extends Controller
             if($request->hasFile('videos')) {
                 foreach ($request->videos as $video){
                     $attachment = new Attachment();
-                    $attachment->path = $this->imageStore($video,"media",'videos' );
+                    $attachment->path = $this->imageStore($video,"gallery",'videos' );
                     $attachment->type = 'video';
                     $apartment->images()->save($attachment);
                 }// End Foreach
@@ -206,13 +206,13 @@ class ApartmentController extends Controller
              ]);
             if($request->hasFile("images")) {
                 foreach ($apartment->images as $image) {
-                    $this->imageDestroy("media",'images' ,$image->path);
+                    $this->imageDestroy("gallery",'images' ,$image->path);
                     $destroyImages = Attachment::destroy($image->id);
                 }
 
                 foreach ($request->images as $image) {
                     $addImages =  Attachment::create([
-                        'path' => $this->imageStore($image,"media",'images'),
+                        'path' => $this->imageStore($image,"gallery",'images'),
                         'type' => 'image',
                         'status' => 1,
                         'apartment_id' => $apartment->id,

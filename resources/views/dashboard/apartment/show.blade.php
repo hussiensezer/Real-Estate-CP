@@ -474,8 +474,8 @@
                                     <div class="uk-child-width-1-6@m" uk-grid uk-lightbox="animation: fade">
                                         @foreach($apartment->images as $image)
                                             <div>
-                                                <a class="uk-inline" href="{{ URL::to('public/media/images/'. $image->path)}}" data-caption="{{$image->type}}">
-                                                    <img src="{{ URL::to('public/media/images/'. $image->path)}}" alt="" class="w-75">
+                                                <a class="uk-inline" href="{{ URL::to('public/gallery/images/'. $image->path)}}" data-caption="{{$image->type}}">
+                                                    <img src="{{ URL::to('public/gallery/images/'. $image->path)}}" alt="" class="w-75">
                                                 </a>
                                             </div>
                                         @endforeach
@@ -492,8 +492,8 @@
                                     <div class="uk-child-width-1-2@m" uk-grid uk-lightbox="animation: fade">
                                         @foreach($apartment->media as $video)
                                             <div>
-                                                <a class="uk-inline" href="{{ URL::to('public/media/videos/'. $video->path)}}" data-caption="{{$video->type}}">
-                                                    <video src="{{ URL::to('public/media/videos/'. $video->path)}}" alt="" class="w-100"></video>
+                                                <a class="uk-inline" href="{{ URL::to('public/gallery/videos/'. $video->path)}}" data-caption="{{$video->type}}">
+                                                    <video src="{{ URL::to('public/gallery/videos/'. $video->path)}}" alt="" class="w-100"></video>
                                                 </a>
                                             </div>
                                         @endforeach

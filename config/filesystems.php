@@ -64,7 +64,7 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-        'media' => [
+        'gallery' => [
             'driver' => 'local',
             'root' => storage_path('app/public/'),
 
@@ -83,7 +83,7 @@ return [
     */
 
     'links' => [
-        public_path("media") => storage_path('app/public'),
+        public_path("gallery") => storage_path('app/public'),
     ],
 
 ];
