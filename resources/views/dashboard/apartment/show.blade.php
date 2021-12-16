@@ -269,7 +269,7 @@
                                 <!-- End Row -->
                             </div>
                         </div>
-                        @if($apartment->mediator_count !== 0)
+                        @if($apartment->mediator_count != 0 && $apartment->mediator != NULL)
                         <div class="acd-group">
                             <a href="#" class="acd-heading">معلومات الوسيط.</a>
                             <div class="acd-des" style="display: none;">
@@ -330,7 +330,7 @@
                             </div>
                         </div>
                         @endif
-                        @if($apartment->sell_count !== 0)
+                        @if($apartment->sell_count != 0  && $apartment->sell != NULL)
                         <div class="acd-group">
                             <a href="#" class="acd-heading">معلومات البيع</a>
                             <div class="acd-des" style="display: none;">
@@ -361,7 +361,7 @@
                         </div>
                         @endif
 
-                        @if($apartment->rent_count !== 0)
+                        @if($apartment->rent_count != 0 && $apartment->rent != NULL)
                             <div class="acd-group">
                                 <a href="#" class="acd-heading">معلومات @lang("global." . $apartment->apartment_type)</a>
                                 <div class="acd-des" style="display: none;">
@@ -414,7 +414,7 @@
                             </div>
                         @endif
 
-                        @if($apartment->owner_count !== 0)
+                        @if($apartment->owner_count !== 0 && $apartment->owner != NULL)
                             <div class="acd-group">
                                 <a href="#" class="acd-heading">معلومات المالك</a>
                                 <div class="acd-des" style="display: none;">
@@ -466,7 +466,7 @@
                             </div>
                         @endif
 
-                        @if($apartment->images_count !== 0)
+                        @if($apartment->images_count != 0)
                             <div class="acd-group">
                                 <a href="#" class="acd-heading"> الصور</a>
                                 <div class="acd-des" style="display: none;">
@@ -484,7 +484,7 @@
                                 </div>
                             </div>
                         @endif
-                        @if($apartment->media_count !== 0)
+                        @if($apartment->media_count != 0)
                             <div class="acd-group">
                                 <a href="#" class="acd-heading"> الفيديوهات</a>
                                 <div class="acd-des" style="display: none;">

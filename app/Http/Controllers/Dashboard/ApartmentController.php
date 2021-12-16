@@ -158,7 +158,6 @@ class ApartmentController extends Controller
             'cityId','stepId','groupId','userId','sell','rent','owner','mediator','images','media'
         ])->withCount(["images", 'sell','rent','media','owner','mediator'])->findOrFail($id);
 
-//        return $apartment;
         return view("dashboard.apartment.show" , compact('apartment'));
     }// End Show
 
