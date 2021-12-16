@@ -30,7 +30,7 @@
                            @endif
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             @if($apartment->apartment_type == 'sell')
                                 <div class="badge badge-success">بيع</div>
                             @elseif($apartment->apartment_type == 'rent')
@@ -39,8 +39,13 @@
                                 <div class="badge badge-warning"> ايجار مفروش</div>
                             @endif
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="badge badge-dark">{{$apartment->userId->name}}</div>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{route("dashboard.apartment.whatsApp", $apartment->id)}}" class="btn btn-outline-success btn-sm">
+                                <i class="fa fa-whatsapp"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -256,10 +261,21 @@
                                     <!--End Col -->
 
                                     <!--Start Col -->
-                                    <div class="col-md-12 my-3">
+                                    <div class="col-md-6 my-3">
                                         <b class="text-primary text-bold">  التعليق : - </b>
                                         @if($apartment->comments !== NULL)
                                             <span>{{$apartment->comments}}</span>
+                                        @else
+                                            <del class="text-danger">لا توجد معلومات</del>
+                                        @endif
+                                    </div>
+                                    <!--End Col -->
+
+                                    <!--Start Col -->
+                                    <div class="col-md-6 my-3">
+                                        <b class="text-primary text-bold">  كود الوحدة : - </b>
+                                        @if($apartment->serial_no !== NULL)
+                                            <span onclick="copyToClipboard('serial')" style="cursor: pointer"><b id="serial">{{$apartment->serial_no}}</b></span>
                                         @else
                                             <del class="text-danger">لا توجد معلومات</del>
                                         @endif
@@ -518,5 +534,27 @@
     @toastr_js
     @toastr_render
 
+    <script>
+        function copyToClipboard(elementId) {
 
+            // Create a "hidden" input
+            var aux = document.createElement("input");
+
+            // Assign it the value of the specified element
+            aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+
+            // Append it to the body
+            document.body.appendChild(aux);
+
+            // Highlight its content
+            aux.select();
+
+            // Copy the highlighted text
+            document.execCommand("copy");
+
+            // Remove it from the body
+            document.body.removeChild(aux);
+
+        }
+    </script>
 @endsection

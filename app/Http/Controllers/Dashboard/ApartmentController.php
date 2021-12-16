@@ -375,6 +375,8 @@ class ApartmentController extends Controller
 //        $apartments = Apartment::where([['apartment_type' , $request->apartment_type]])->whereBetween("apartment_space", [$request->apartment_space_from,$request->apartment_space_to])->get();
 
         $cities =  City::where("status" , 1)->get();
+        $serial = isset($request->serial) && !empty($request->serial) ? ['serial_no', $request->serial] : ['apartment_type' , "!=" , 'Hussien Attia'];
+        $apartment_type = isset($request->apartment_type) && !empty($request->apartment_type) ? ['apartment_type', $request->apartment_type] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $city = isset($request->city) && !empty($request->city) ? ['city_id', $request->city] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $step = isset($request->step) && !empty($request->step) ? ['step_id', $request->step] :  ['apartment_type' , "!=" , 'Hussien Attia'];
         $group = isset($request->group) && !empty($request->group) ? ['group_id', $request->group] :  ['apartment_type' , "!=" , 'Hussien Attia'];
@@ -392,7 +394,7 @@ class ApartmentController extends Controller
 
         $apartments = Apartment::where([
             ['available', 1],
-            ["apartment_type" ,  $request->apartment_type],
+            $serial,$apartment_type,
             $city,$step,$group,$building,$floor,$apartment_no,
             $view,$directions,$total_rooms,$total_bathroom,$garden,$decoration
         ])->whereBetween("apartment_space", [$apartment_space_from,$apartment_space_to])->latest()->paginate()->withQueryString();

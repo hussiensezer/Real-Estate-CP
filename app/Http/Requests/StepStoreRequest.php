@@ -24,7 +24,7 @@ class StepStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => 'required',
+            "name" => 'required|unique:steps,name,null,id,city_id,' . $this->request->get('city'),
             'city' => 'required|exists:cities,id',
         ];
     }

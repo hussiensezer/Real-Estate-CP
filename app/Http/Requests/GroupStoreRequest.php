@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GroupStoreRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class GroupStoreRequest extends FormRequest
     public function rules()
     {
         return [
-           "name" => 'required',
+           "name" => 'required|unique:groups,name,null,id,city_id,' . $this->request->get('city'),
             'city' => 'required|exists:cities,id',
             'step' => 'required|exists:steps,id',
             'status' => 'required|boolean',

@@ -30,6 +30,14 @@
                             <!-- Start Col-->
                                 <div class="col-md-4">
                                     <div class="form-group">
+                                        <label for="serial"> السريال </label>
+                                        <input type="text" class="form-control" name="serial" {{request()->query("serial")}}>
+                                    </div>
+                                </div>
+
+                                <!-- Start Col-->
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label for="apartment_type">نوع الوحدة</label>
                                         <select name="apartment_type" id="" class="custom-select mr-sm-2">
                                             <option  disabled selected>اختار نوع الوحدة...</option>
