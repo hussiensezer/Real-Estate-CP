@@ -434,4 +434,7 @@ class ApartmentController extends Controller
         $numbers = 100;
         return view("dashboard.apartment.search",compact('cities', 'numbers','apartments'));
     }
+    public function changeTextType() {
+        return view("dashboard.apartment.z8rafa");
+    }
 }

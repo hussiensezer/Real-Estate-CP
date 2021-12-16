@@ -113,6 +113,18 @@
                         </ul>
                     </li>
                 @endcan
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#changetextType">
+                            <div class="pull-left"><i class="ti-palette"></i><span
+                                    class="right-nav-text"> تعديل نص</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="changetextType" class="collapse" data-parent="#changetextType">
+                            <li><a href="{{route("dashboard.apartment.changeTextType")}}"> تعديل </a></li>
+
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
