@@ -256,17 +256,26 @@ class ApartmentController extends Controller
     public function sendWhatsApp(Request $request,$id) {
         DB::beginTransaction();
         try{
-        $apartment = Apartment::with(['images'])->findOrfail($id);
+        $apartment = Apartment::with(['images', 'cityId','stepId'])->findOrfail($id);
+
         $totalRooms =  "عدد الغرف" . $apartment->total_rooms ;
         $totalBathrooms = " عدد الحمامات  " . $apartment->total_bathroom ;
         $apartmentSpace = " مساحة الشقة ". $apartment->apartment_space;
         $shortCode  = "  كود الوحدة ". $apartment->serial_no;
         $floor =  " الدور " . $apartment->floor ;
-        $view =   " الاطلالة " . trans('global.' . $apartment->view);
+//        $view =   " الاطلالة " . trans('global.' . $apartment->view);
         $directions = " الاتجاة " . trans('global.' . $apartment->directions);
         $apartmentType = " حالة الوحدة " . trans('global.' . $apartment->apartment_type);
+        $step = "  المرحلة " . $apartment->stepId->name;
+        $city = "  المدينة " . $apartment->cityId->city;
+        $number =  "  للاستفسار ". "01004498583";
         $body =
             $apartmentType . '
+            '.
+            $city . '
+            '
+            .
+            $city . '
             '
             . $apartmentSpace . '
             '
@@ -276,11 +285,14 @@ class ApartmentController extends Controller
             '
             . $floor . '
             '
-            . $view . '
-            '
+//            . $view . '
+//            '
             . $directions .'
             '
-            . $shortCode
+            . $shortCode . '
+            
+            '. $number . '
+            '
         ;
 
         $response = Http::post('https://api.ultramsg.com/instance1416/messages/chat/', [
@@ -295,11 +307,12 @@ class ApartmentController extends Controller
             ];
 
 
-        foreach ($apartment->images as $img) {
+        foreach ($imageArray as $img) {
             $images =  Http::post('https://api.ultramsg.com/instance1416/messages/image', [
                 'token' => 'klj9jdvaxty5zwt5',
                 'to' =>  '+2' . $request->phone,
-                "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
+//                "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
+            "image" => $img,
                 'caption' => 'Testing'
             ]);
         }
@@ -435,6 +448,6 @@ class ApartmentController extends Controller
         return view("dashboard.apartment.search",compact('cities', 'numbers','apartments'));
     }
     public function changeTextType() {
-        return view("dashboard.apartment.z8rafa");
+            return view("dashboard.apartment.z8rafa");
     }
 }

@@ -41,6 +41,8 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
+                'token' => $request->token,
+                'instance_id' =>  $request->instance_id,
                 'status' => $request->status,
             ]);
             $user->assignRole($request->role);
@@ -79,6 +81,8 @@ class UserController extends Controller
                 'name' => $request->name,
                 'password' => !empty($request->password) ? bcrypt($request->password) : $user->password ,
                 'status' => $request->status,
+                'token' => $request->token,
+                'instance_id' =>  $request->instance_id,
             ]);
             $user->syncRoles([$request->role]);
             toastr()->info("تم التعديل بيانات المستخدم بنجاح");

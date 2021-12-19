@@ -62,5 +62,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
         Route::put("apartment/rent/update/{id}",'ApartmentController@rentUpdate')->name("apartment.rent.update");
         Route::get("apartment/destroySession",'ApartmentController@destroySession')->name("apartment.destroySessions");
 
+        //Whats App Setting
+        Route::get("whatsApp/qrCode", 'WhatsAppController@qrCode')->name("whatsApp.qrCode");
+        Route::get("whatsApp/connectedPhoneInfo", 'WhatsAppController@connectedPhoneInfo')->name("whatsApp.connectedPhoneInfo");
+        Route::get("whatsApp/takeOver", 'WhatsAppController@takeOver')->name("whatsApp.takeOver");
+        Route::get("whatsApp/logout", 'WhatsAppController@logout')->name("whatsApp.logout");
+        Route::get("whatsApp/clearQueue", 'WhatsAppController@clearQueue')->name("whatsApp.clearQueue");
+        Route::get("whatsApp/Unsent", 'WhatsAppController@Unsent')->name("whatsApp.Unsent");
+        Route::get("whatsApp/setting", 'WhatsAppController@setting')->name("whatsApp.setting");
+
     }); // Dashboard And Middleware Auth Web
 }); // End Of Localizations

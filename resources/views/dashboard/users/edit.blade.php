@@ -105,6 +105,24 @@
 
 
                                 <br>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label>Token <span class="tx-danger"></span></label>
+                                        <input type="text" name="token"  class="form-control" value="{{$user->token}}">
+                                        @error('token')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col">
+                                        <label>Instance<span class="tx-danger"></span></label>
+                                        <input type="text" name="instance_id" required="" class="form-control" value="{{$user->instance_id}}">
+                                        @error('instance_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <br>
 
 
 

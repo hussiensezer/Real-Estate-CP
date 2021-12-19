@@ -125,6 +125,25 @@
 
                         </ul>
                     </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#whatsApp">
+                            <div class="pull-left"><i class="ti-palette"></i><span
+                                    class="right-nav-text">  اعدادات واتساب </span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="whatsApp" class="collapse" data-parent="#whatsApp">
+                            <li><a href="{{route("dashboard.whatsApp.qrCode")}}"> Qr Code </a></li>
+                            <li><a href="{{route("dashboard.whatsApp.connectedPhoneInfo")}}"> Connected Phone Info </a></li>
+                            <li><a href="{{route("dashboard.whatsApp.takeOver")}}"> TakeOver </a></li>
+                            <li><a href="{{route("dashboard.whatsApp.clearQueue")}}"> Clear Queue Message</a></li>
+                            <li><a href="{{route("dashboard.whatsApp.Unsent")}}"> Clear Unsent Message</a></li>
+                            <li><a href="{{route("dashboard.whatsApp.setting")}}"> Setting</a></li>
+                            <li><a href="{{route("dashboard.whatsApp.logout")}}"> Log Out </a></li>
+
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

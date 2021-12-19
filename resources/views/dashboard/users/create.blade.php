@@ -81,6 +81,7 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <label>الصلاحيات</label>
@@ -103,7 +104,24 @@
 
 
                                 <br>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label>Token <span class="tx-danger"></span></label>
+                                        <input type="text" name="token"  class="form-control" >
+                                        @error('token')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
+                                    <div class="col">
+                                        <label>Instance<span class="tx-danger"></span></label>
+                                        <input type="text" name="instance_id" required="" class="form-control" >
+                                        @error('instance_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <br>
 
 
                                 <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">اضافة </button>
