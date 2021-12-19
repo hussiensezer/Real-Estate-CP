@@ -304,18 +304,27 @@ class ApartmentController extends Controller
         $imageArray = ['https://compuavision.com/cp/public/gallery/images/af6ddbd45111421267b7d9850b0f794e.jpg',
           "https://compuavision.com/cp/public/gallery/images/6628553b358586ab0ba31e5b68c02f20.jpg",
             'https://compuavision.com/cp/public/gallery/images/2af0aef08bc3cc10bd807562560c3dbe.jpg'
-            ];
+        ];
 
 
-        foreach ($imageArray as $img) {
-            $images =  Http::post('https://api.ultramsg.com/instance1416/messages/image', [
-                'token' => 'klj9jdvaxty5zwt5',
-                'to' =>  '+2' . $request->phone,
-//                "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
-            "image" => $img,
-                'caption' => 'Testing'
-            ]);
-        }
+//        foreach ($imageArray as $img) {
+//            $images =  Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/image', [
+//                'token' => auth()->user()->token,
+//                'to' =>  '+2' . $request->phone,
+////                "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
+//                "image" => $img,
+//                'caption' => 'Testing'
+//            ]);
+//        }
+
+            foreach ($apartment->images as $img) {
+                $images =  Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/image', [
+                    'token' => auth()->user()->token,
+                    'to' =>  '+2' . $request->phone,
+                    "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
+                    'caption' => 'Testing'
+                ]);
+            }
             DB::commit();
             toastr()->info(" تم ارسال بيانات الوحدة");
             return redirect()->back();
