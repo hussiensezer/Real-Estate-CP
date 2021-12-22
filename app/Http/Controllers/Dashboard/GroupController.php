@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupStoreRequest;
+use App\Http\Requests\GroupUpdateRequest;
 use App\Models\City;
 use App\Models\Group;
 use App\Models\Step;
@@ -70,7 +71,7 @@ class GroupController extends Controller
     }
 
 
-    public function update(GroupStoreRequest $request, $id)
+    public function update(GroupUpdateRequest $request, $id)
     {
 
         try {

@@ -3,7 +3,7 @@
 
 
 @section('title')
-    تعديل صلاحية
+    تعديل مدينة
 @stop
 @endsection
 @section('page-header')
@@ -11,12 +11,12 @@
     <div class="page-title">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="mb-0">  تعديل صلاحية</h4>
+                <h4 class="mb-0">  تعديل مدينة </h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}" class="default-color">الصفحة الرائسية</a></li>
-                    <li class="breadcrumb-item active">تعديل صلاحية</li>
+                    <li class="breadcrumb-item active">تعديل مدينة </li>
                 </ol>
             </div>
         </div>
@@ -43,33 +43,32 @@
                     <div class="col-xs-12">
                         <div class="col-md-12">
                             <br>
-                            <form action="{{route("dashboard.role.update", $roles->id)}}" method="post">
+                            <form action="{{route("dashboard.city.update",$city->id)}}" method="post">
                                 @csrf
                                 {{method_field('put')}}
                                 <div class="form-row">
-                                    <div class="col-md-6 m-auto text-center">
+                                    <div class="col-md-6">
 
-                                        <label>اسم الصلاحية <span class="tx-danger">*</span></label>
-                                        <input type="text" name="name" required="" class="form-control" value="{{$roles->name}}">
+                                        <label>اسم المدينة <span class="tx-danger">*</span></label>
+                                        <input type="text" name="name" required="" class="form-control" value="{{$city->city}}">
                                         @error('name')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="form-row my-5">
-
-                                    @foreach($roles->permissions as $permission)
-                                        <div class="col-md-2 my-2">
-                                            <label for="{{$permission->name}}">@lang("global." . $permission->name)</label>
-                                            <input type="checkbox"  value="{{$permission->id}}" id="{{$permission->name}}" name="permissions[]" checked>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 text-center my-5">
-                                        <button class="btn btn-primary btn-sm nextBtn btn-lg " type="submit">تعديل </button>
+                                    <div class="col-md-6">
+                                        <label>الحالة</label>
+                                        <select name="status" class="form-control js-example-basic-single p-0">
+                                            <option value="1" {{$city->status == 1 ? 'selected' : ''}}>مفعل</option>
+                                            <option value="0" {{$city->status == 0 ? 'selected' : ''}}>غير مفعل</option>
+                                        </select>
                                     </div>
                                 </div>
+
+                                <br>
+
+
+
+                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">تعديل </button>
                             </form>
                         </div>
                     </div>

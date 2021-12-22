@@ -52,6 +52,8 @@ class PermissionSeederTable extends Seeder
             'apartment_whatsApp',
             'apartment_access',
 
+            'info_access'
+
         ];
         foreach ($permissions as $permission) {
             Permission::create([

@@ -36,6 +36,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
         //Role Route
         Route::resource("role", 'RoleController');
+        Route::resource("feedback", 'FeedbackController');
+        Route::resource("ads", 'AdsController');
 
         // Apartment Route
         Route::get("apartment/index" , 'ApartmentController@index')->name("apartment.index");
@@ -45,6 +47,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
         Route::get("apartment/create" , 'ApartmentController@create')->name("apartment.create");
         Route::post("apartment/store" , 'ApartmentController@store')->name("apartment.store");
         Route::get("apartment/show/{id}" , 'ApartmentController@show')->name("apartment.show");
+        Route::delete("apartment/destroy/{id}" , 'ApartmentController@destroy')->name("apartment.destroy");
+        Route::delete("apartment/destroyImage/{id}" , 'ApartmentController@destroyImage')->name("apartment.destroyImage");
         Route::get("apartment/mediators","ApartmentController@mediators")->name("apartment.mediators");
         Route::get("apartment/owners","ApartmentController@owners")->name("apartment.owners");
         Route::get("apartment/sell",'ApartmentController@sell')->name("apartment.sell");
@@ -56,6 +60,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
         Route::put("apartment/update/{id}",'ApartmentController@update')->name("apartment.update");
         Route::get("apartment/owner/edit/{id}",'ApartmentController@ownerEdit')->name("apartment.owner.edit");
         Route::put("apartment/owner/update/{id}",'ApartmentController@ownerUpdate')->name("apartment.owner.update");
+        Route::get("apartment/mediator/edit/{id}",'ApartmentController@mediatorEdit')->name("apartment.mediator.edit");
+        Route::put("apartment/mediator/update/{id}",'ApartmentController@mediatorUpdate')->name("apartment.mediator.update");
         Route::get("apartment/sell/edit/{id}",'ApartmentController@sellEdit')->name("apartment.sell.edit");
         Route::put("apartment/sell/update/{id}",'ApartmentController@sellUpdate')->name("apartment.sell.update");
         Route::get("apartment/rent/edit/{id}",'ApartmentController@rentEdit')->name("apartment.rent.edit");

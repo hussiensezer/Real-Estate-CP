@@ -34,7 +34,11 @@
                                 <label for="number">رقم العميل</label>
                                 <input type="number" name="phone" class="form-control" required>
                             </div>
-
+                            <div class="form-group col-md-6">
+                                <label for="directions"> ارسال الاتجاهات للعميل</label>
+                                <input type="hidden" value="0" name="directions">
+                                <input type="checkbox" value="1" id="directions"name="directions" class="form-check">
+                            </div>
                             <div class="col-md-6 form-group py-4">
                                 <button class="btn btn-outline-success btn-sm mt-3">
                                     <i class="fa fa-whatsapp"></i>

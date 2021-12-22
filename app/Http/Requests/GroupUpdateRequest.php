@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class GroupStoreRequest extends FormRequest
+class GroupUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +24,7 @@ class GroupStoreRequest extends FormRequest
     public function rules()
     {
         return [
-           "name" => 'required|regex:/^[a-zA-Z0-9]+$/|unique:groups,name,null,id,city_id,' . $this->request->get('city'),
+            "name" => 'required|regex:/^[a-zA-Z0-9]+$/',
             'city' => 'required|exists:cities,id',
             'step' => 'required|exists:steps,id',
             'status' => 'required|boolean',

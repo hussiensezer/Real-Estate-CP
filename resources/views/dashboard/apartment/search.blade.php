@@ -249,6 +249,18 @@
                                 </div>
                                 <!-- End Col-->
 
+                                <!-- Start Col -->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>  ابحث بالمبلغ لشراء وحدة سكنية : <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control my-2" name="moneyStart" value="{{request()->query("moneyStart")}}" placeholder="اقل سعر">
+                                        <input type="number" class="form-control" name="moneyEnd" value="{{request()->query("moneyEnd")}}" placeholder="الحد الاقصى">
+
+                                    </div>
+                                    <div class="alert alert-danger apartment_space d-none"></div>
+                                </div>
+                                <!-- End Col -->
+
                         </div><br>
                             <div class="form-row">
                                 <div class="col-md-12 text-center">
@@ -306,10 +318,13 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
+
                                     @foreach($apartments as $i => $apartment)
+                                        @if($apartment->user_id == auth()->user()->id || auth()->user()->can('info_access'))
                                         <tr>
                                             <td>{{$i+ 1}}</td>
                                             <td>{{$apartment->userId->name}}</td>
@@ -386,8 +401,45 @@
                                                     <i class="fa fa-whatsapp"></i>
                                                 </a>
                                             </td>
+                                            <td title="حذف وحدة">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#apartment_{{$apartment->id}}">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="apartment_{{$apartment->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">هل متاكد من حذف الوحدة</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <label for=""> كود الوحدة</label>
+                                                                <input type="text" disabled value="{{$apartment->serial_no}}">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button>
+                                                                <form action="{{route("dashboard.apartment.destroy" , $apartment->id)}}" method="post">
+                                                                    @csrf
+                                                                    {{method_field('delete')}}
+                                                                    <button type="submit" class="btn btn-danger">
+                                                                        <i class="fa fa-trash"></i>
+                                                                        تاكيد عملية الحذف
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
+                                        @endif
                                     @endforeach
+
                                     </tbody>
                                 </table>
                             </div>

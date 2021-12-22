@@ -11,6 +11,7 @@ class WhatsAppController extends Controller
     public function qrCode() {
         $methods = "https://api.ultramsg.com/" .auth()->user()->instance_id . "/instance/qr";
         $token = auth()->user()->token;
+//        return $methods;
         return view("dashboard.whatsApp.qrCode" , compact('methods', 'token'));
     }
     public function connectedPhoneInfo() {

@@ -39,6 +39,7 @@ class CreateApartmentsTable extends Migration
             $table->boolean("videos")->default(0);  // هل يوجد فيديوهان
             $table->text("comments")->nullable(); // ملاحظات
             $table->boolean("available")->nullable(1) ; // هل متاحة ول لا
+            $table->integer("money")->nullable();
             $table->timestamps();
 
             $table->foreign("city_id")->references("id")->on("cities")->onDelete("cascade")->cascadeOnUpdate();

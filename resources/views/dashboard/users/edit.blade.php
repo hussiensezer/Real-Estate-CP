@@ -89,7 +89,7 @@
                                         <select name="role" class="form-control js-example-basic-single p-0">
                                             <option disabled selected>اختار الصلاحية</option>
                                             @foreach($rs as $role)
-                                                <option value="{{$role->id}}" {{$userRole->id == $role->id ? 'selected' : ''}}> {{$role->name}}</option>
+                                                <option value="{{$role->id}}" {{!empty($userRole->id) && $userRole->id == $role->id ? 'selected' : ''}}> {{$role->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

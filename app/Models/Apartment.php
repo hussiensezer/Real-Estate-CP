@@ -53,5 +53,9 @@ class Apartment extends Model
             ->where("type" , '=','video')->select(['id','path','type','status','apartment_id']);
     }// End Images
 
+    public function feedback() {
+        return $this->hasMany(Feedback::class, 'apartment_code', 'serial_no');
+    }
+
 
 }

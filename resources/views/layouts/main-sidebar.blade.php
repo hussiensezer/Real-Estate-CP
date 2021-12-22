@@ -114,6 +114,36 @@
                     </li>
                 @endcan
                     <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#feedback">
+                            <div class="pull-left"><i class="ti-palette"></i><span
+                                    class="right-nav-text">  المعاينة</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="feedback" class="collapse" data-parent="#feedback">
+                            <li><a href="{{route("dashboard.feedback.index")}}"> كل المعاينات </a></li>
+                            <li><a href="{{route("dashboard.feedback.create")}}"> اضافة معاينة </a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#ads">
+                            <div class="pull-left"><i class="ti-palette"></i><span
+                                    class="right-nav-text">  الاعلانات </span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="ads" class="collapse" data-parent="#ads">
+                            <li><a href="{{route("dashboard.ads.create")}}"> اضافة اعلان </a></li>
+
+                        </ul>
+                    </li>
+
+
+                    <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#changetextType">
                             <div class="pull-left"><i class="ti-palette"></i><span
                                     class="right-nav-text"> تعديل نص</span></div>

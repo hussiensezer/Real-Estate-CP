@@ -38,7 +38,7 @@ class ApartmentController extends Controller
     {
         $apartments =  Apartment::with([
             'cityId','stepId','groupId','userId'
-        ])->withCount(["images", 'sell','rent','media','owner','mediator'])->latest()->paginate(20);
+        ])->withCount(["images", 'sell','rent','media','owner','mediator'])->latest()->paginate(20)->withQueryString();
 
         return view("dashboard.apartment.index", compact('apartments'));
     } // End Index
@@ -59,7 +59,18 @@ class ApartmentController extends Controller
         DB::beginTransaction();
 
       try{
-          $randomSerialNumber =   random_int(10000, 9999999);
+          $randomSerialNumber = '';
+          $money = '';
+          if($request->apartment_type == 'sell') {
+              $randomSerialNumber =  "S". random_int(100, 1000);
+              $money = $request->apartment_price;
+          }elseif($request->apartment_type == 'rent') {
+              $randomSerialNumber =  "R". random_int(100, 1000);
+              $money = $request->rent_value;
+          }elseif($request->apartment_type == 'rent_w_furniture') {
+             $randomSerialNumber =  "RF". random_int(100, 1000);
+              $money = $request->rent_value;
+          }
           $apartment = Apartment::create([
             "city_id" => $request->city,
             "step_id" => $request->step,
@@ -84,6 +95,7 @@ class ApartmentController extends Controller
             'photos' => $request->hasFile('images') ? 1 : 0,
             'videos' => $request->hasFile('videos') ? 1 : 0,
             'comments' => $request->apartment_comment,
+            'money' => $money,
             'available' => 1,
           ]);
           switch ($request->apartment_type) {
@@ -155,9 +167,10 @@ class ApartmentController extends Controller
     public function show($id)
     {
         $apartment = Apartment::with([
-            'cityId','stepId','groupId','userId','sell','rent','owner','mediator','images','media'
-        ])->withCount(["images", 'sell','rent','media','owner','mediator'])->findOrFail($id);
+            'cityId','stepId','groupId','userId','sell','rent','owner','mediator','images','media','feedback.user'
+        ])->withCount(["images", 'sell','rent','media','owner','mediator','feedback'])->findOrFail($id);
 
+//        return $apartment;
         return view("dashboard.apartment.show" , compact('apartment'));
     }// End Show
 
@@ -231,8 +244,42 @@ class ApartmentController extends Controller
 
     public function destroy($id)
     {
-        //
-    }
+        DB::beginTransaction();
+        try{
+        $apartment = Apartment::findOrFail($id);
+        foreach ($apartment->images  as $img) {
+            $this->imageDestroy("gallery",'images' ,$img->path);
+            $img = Attachment::destroy($img->id);
+        }
+
+        $mediator =  Mediator::where("apartment_id" , $apartment->id)->first() ;
+        if(!empty($mediator)) {
+            $mediator->delete();
+        }
+
+        $owner = Owner::where("apartment_id" , $apartment->id)->first();
+         if(!empty($owner)) {
+            $owner->delete();
+        }
+         $rent = Rent::where("apartment_id" , $apartment->id)->first();
+        if(!empty($rent)) {
+            $rent->delete();
+        }
+        $sell =  SellApartment::where('apartment_id', $apartment->id)->first();
+        if(!empty($sell)) {
+            $sell->delete();
+        }
+        $apartment->delete();
+
+            DB::commit();
+            toastr()->warning("تم حذف الوحدة بنجاح");
+            return redirect()->back();
+
+        }catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()] );
+        }
+    }// End Destroy
     public function owners() {
       return view("dashboard.apartment.type.owners");
     }
@@ -254,6 +301,7 @@ class ApartmentController extends Controller
         return view("dashboard.apartment.whatApp",compact('apartment'));
     }
     public function sendWhatsApp(Request $request,$id) {
+
         DB::beginTransaction();
         try{
         $apartment = Apartment::with(['images', 'cityId','stepId'])->findOrfail($id);
@@ -264,7 +312,7 @@ class ApartmentController extends Controller
         $shortCode  = "  كود الوحدة ". $apartment->serial_no;
         $floor =  " الدور " . $apartment->floor ;
 //        $view =   " الاطلالة " . trans('global.' . $apartment->view);
-        $directions = " الاتجاة " . trans('global.' . $apartment->directions);
+        $directions = $apartment->directions != NULL && $request->directions == 1 ? " الاتجاة " . trans('global.' . $apartment->directions) : '' ;
         $apartmentType = " حالة الوحدة " . trans('global.' . $apartment->apartment_type);
         $step = "  المرحلة " . $apartment->stepId->name;
         $city = "  المدينة " . $apartment->cityId->city;
@@ -295,16 +343,16 @@ class ApartmentController extends Controller
             '
         ;
 
-        $response = Http::post('https://api.ultramsg.com/instance1416/messages/chat/', [
-            'token' => 'klj9jdvaxty5zwt5',
+        $response = Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/chat', [
+            'token' => auth()->user()->token,
             'to' =>  '+2' . $request->phone,
             "priority" => 10,
             "body" =>$body,
         ]);
-        $imageArray = ['https://compuavision.com/cp/public/gallery/images/af6ddbd45111421267b7d9850b0f794e.jpg',
-          "https://compuavision.com/cp/public/gallery/images/6628553b358586ab0ba31e5b68c02f20.jpg",
-            'https://compuavision.com/cp/public/gallery/images/2af0aef08bc3cc10bd807562560c3dbe.jpg'
-        ];
+//        $imageArray = ['https://compuavision.com/cp/public/gallery/images/af6ddbd45111421267b7d9850b0f794e.jpg',
+//          "https://compuavision.com/cp/public/gallery/images/6628553b358586ab0ba31e5b68c02f20.jpg",
+//            'https://compuavision.com/cp/public/gallery/images/2af0aef08bc3cc10bd807562560c3dbe.jpg'
+//        ];
 
 
 //        foreach ($imageArray as $img) {
@@ -317,14 +365,14 @@ class ApartmentController extends Controller
 //            ]);
 //        }
 
-            foreach ($apartment->images as $img) {
-                $images =  Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/image', [
-                    'token' => auth()->user()->token,
-                    'to' =>  '+2' . $request->phone,
-                    "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
-                    'caption' => 'Testing'
-                ]);
-            }
+//            foreach ($apartment->images as $img) {
+//                $images =  Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/image', [
+//                    'token' => auth()->user()->token,
+//                    'to' =>  '+2' . $request->phone,
+//                    "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
+//                    'caption' => 'Testing'
+//                ]);
+//            }
             DB::commit();
             toastr()->info(" تم ارسال بيانات الوحدة");
             return redirect()->back();
@@ -349,33 +397,67 @@ class ApartmentController extends Controller
                 'other_phone' => $request->owner_other_phone,
                 'comment' =>  $request->owner_comment,
             ]);
+
             toastr()->info("تم تعديل معلومات المالك بنجاح");
             return redirect()->back();
         }
         catch (\Exception $e) {
+            DB::rollback();
             return redirect()->back()->withErrors(['error' => $e->getMessage()] );
         }
     }
 
+    public function mediatorEdit($id) {
+        $mediator =  Mediator::where("apartment_id", $id)->firstOrFail();
+        return view("dashboard.apartment.mediatorsEdit",compact('mediator'));
+    }
+
+    public function mediatorUpdate(Request $request, $id) {
+
+        try{
+            $mediator =  Mediator::findOrFail($id);
+
+            $mediator->update([
+                'name' => $request->mediators_name,
+                'title' => $request->mediators_title,
+                'phone' => $request->mediators_phone,
+                'other_phone' => $request->mediators_other_phone,
+                'comment'  => $request->mediators_comment
+            ]);
+
+            toastr()->info("تم تعديل معلومات المالك بنجاح");
+            return redirect()->back();
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()] );
+        }
+    }
     public function sellEdit($id) {
         $sell =  SellApartment::where("apartment_id", $id)->firstOrFail();
+
         return view("dashboard.apartment.sellEdit",compact('sell'));
     }
 
     public function sellUpdate(Request $request,$id) {
-
+        DB::beginTransaction();
         try{
             $sell =  SellApartment::findOrFail($id);
+            $apartment = Apartment::findOrFail($sell->apartment_id);
 
             $sell->update([
                 'apartment_price' => $request->apartment_price,
                 'total_installments' =>  $request->total_installments,
             ]);
-
+            $apartment->update([
+                "money" => $request->apartment_price
+            ]);
+            DB::commit();
             toastr()->info("تم تعديل معلومات بيع الوحدة بنجاح");
             return redirect()->back();
         }
         catch (\Exception $e) {
+            DB::rollback();
             return redirect()->back()->withErrors(['error' => $e->getMessage()] );
         }
     }
@@ -387,9 +469,10 @@ class ApartmentController extends Controller
     }
 
     public function rentUpdate(Request $request,$id) {
-
+        DB::beginTransaction();
         try{
             $rent =  Rent::findOrFail($id);
+            $apartment = Apartment::findOrFail($rent->apartment_id);
 
             $rent->update([
                 'rent_insurance' => $request->rent_insurance,
@@ -397,11 +480,15 @@ class ApartmentController extends Controller
                 'duration_contract' => $request->duration_contract,
                 'annual_expenses' => $request->annual_expenses,
             ]);
-
+            $apartment->update([
+                "money" => $request->rent_value,
+            ]);
+            DB::commit();
             toastr()->info("تم تعديل معلومات ايجار الوحدة بنجاح");
             return redirect()->back();
         }
         catch (\Exception $e) {
+            DB::rollback();
             return redirect()->back()->withErrors(['error' => $e->getMessage()] );
         }
     }// End Rent Update
@@ -432,19 +519,25 @@ class ApartmentController extends Controller
         $directions = isset($request->directions) && !empty($request->directions) ? ['directions', $request->directions] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $total_rooms = isset($request->total_rooms) && !empty($request->total_rooms) ? ['total_rooms', $request->total_rooms] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $total_bathroom = isset($request->total_bathroom) && !empty($request->total_bathroom) ? ['total_bathroom', $request->total_bathroom] : ['apartment_type' , "!=" , 'Hussien Attia'];
-        $apartment_space_from = isset($request->apartment_space_from) && !empty($request->apartment_space_from) ?$request->apartment_space_from: [0];
-        $apartment_space_to =isset($request->apartment_space_to) && !empty($request->apartment_space_to) ?$request->apartment_space_to: [10000000000000000000];
+        $apartment_space_from = isset($request->apartment_space_from) && !empty($request->apartment_space_from) ?$request->apartment_space_from: 0;
+        $apartment_space_to =isset($request->apartment_space_to) && !empty($request->apartment_space_to) ?$request->apartment_space_to: 10000000;
         $garden = isset($request->garden) && !empty($request->garden) ? ['garden_space', $request->garden] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $decoration = isset($request->decoration) && !empty($request->decoration) ? ['decoration', $request->decoration] : ['apartment_type' , "!=" , 'Hussien Attia'];
+        $moneyStart =isset($request->moneyStart) && !empty($request->moneyStart) ?$request->moneyStart: 1;
+        $moneyEnd =isset($request->moneyEnd) && !empty($request->moneyEnd) ?$request->moneyEnd: 10000000;
 
-        $apartments = Apartment::where([
-            ['available', 1],
-            $serial,$apartment_type,
-            $city,$step,$group,$building,$floor,$apartment_no,
-            $view,$directions,$total_rooms,$total_bathroom,$garden,$decoration
-        ])->whereBetween("apartment_space", [$apartment_space_from,$apartment_space_to])->latest()->paginate()->withQueryString();
-
-
+        $apartments = Apartment::
+            where([['available', 1],
+                $serial,$apartment_type,
+                $city,$step,$group,$building,$floor,$apartment_no,
+                $view,$directions,$total_rooms,$total_bathroom,$garden,$decoration])
+            ->whereBetween("apartment_space", [$apartment_space_from,$apartment_space_to])
+            ->whereBetween("money", [intval($moneyStart), intval($moneyEnd)])
+//
+            ->withCount(["images", 'sell','rent','media','owner','mediator'])
+            ->latest()
+            ->paginate()
+            ->withQueryString();
         $numbers = 100;
         return view("dashboard.apartment.search",compact('apartments','cities','numbers'));
     }
@@ -458,5 +551,19 @@ class ApartmentController extends Controller
     }
     public function changeTextType() {
             return view("dashboard.apartment.z8rafa");
+    }
+
+    public function destroyImage($id) {
+
+        try{
+            $img = Attachment::findOrFail($id);
+            $this->imageDestroy("gallery",'images' ,$img->path);
+            $img = Attachment::destroy($img->id);
+            toastr()->warning("تم حذف الصورة بنجاح");
+            return redirect()->back();
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()] );
+        }
     }
 }

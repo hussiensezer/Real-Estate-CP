@@ -53,9 +53,47 @@
 {{--                                    <td>--}}
 {{--                                        <a href="{{route("dashboard.role.show" , $role->id)}}" class="text-warning mx-2"><i class="fa fa-eye" title="مشاهد الصلاحيات"></i></a>--}}
 {{--                                    </td>--}}
+                                    @if($role->name != 'Super Admin')
                                     <td>
                                         <a href="{{route("dashboard.role.edit" , $role->id)}}" class="text-primary mx-2"><i class="fa fa-edit" title=" تعديل البيانات"></i></a>
                                     </td>
+
+                                     <td title="حذف وحدة">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#role_{{$role->id}}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="role_{{$role->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">هل متاكد من حذف الصلاحية</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <label for="">الصلاحية</label>
+                                                        <input type="text" disabled value="{{$role->name}}">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button>
+                                                        <form action="{{route("dashboard.role.destroy" , $role->id)}}" method="post">
+                                                            @csrf
+                                                            {{method_field('delete')}}
+                                                            <button type="submit" class="btn btn-danger">
+                                                                <i class="fa fa-trash"></i>
+                                                                تاكيد عملية الحذف
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
