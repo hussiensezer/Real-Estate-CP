@@ -220,7 +220,6 @@ class ApartmentController extends Controller
             if($request->hasFile("images")) {
                 foreach ($apartment->images as $image) {
                     $this->imageDestroy("gallery",'images' ,$image->path);
-//                    $destroyImages = Attachment::destroy($image->id);
                 }
 
                 foreach ($request->images as $image) {
