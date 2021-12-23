@@ -9,7 +9,7 @@
         <!-- -Start Inner Col-->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="apartment_price">  تمليك : <span class="text-danger">*</span></label>
+                <label for="apartment_price">  سعر الوحدة : <span class="text-danger">*</span></label>
                 <input  type="number"  id="apartment_price" name="apartment_price" class="form-control">
             </div>
             <div class="alert alert-danger apartment_price d-none"></div>

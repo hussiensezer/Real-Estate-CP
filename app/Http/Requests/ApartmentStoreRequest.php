@@ -30,9 +30,9 @@ class ApartmentStoreRequest extends FormRequest
 
             "personal_type" => ['required' ,  Rule::in(['owners', 'mediators'])],
             'owner_name' => 'required_if:personal_type,==,owners',
-            'owner_phone' => 'required_if:personal_type,==,owners|max:11',
+            'owner_phone' => 'required_if:personal_type,==,owners|min:10|max:20',
             'mediators_name' => 'required_if:personal_type,==,mediators',
-            'mediators_phone' => 'required_if:personal_type,==,mediators|max:11',
+            'mediators_phone' => 'required_if:personal_type,==,mediators|min:10|max:20',
 
             "apartment_type" => ['required' ,  Rule::in(['sell', 'rent', 'rent_w_furniture'])],
             'apartment_price' => 'sometimes|regex:/^[0-9]+$/|nullable',

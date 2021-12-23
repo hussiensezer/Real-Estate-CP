@@ -451,7 +451,7 @@
 
         @else
             <div class="col-md-12 my-5">
-                <h2 class="text-danger text-center">لم يتم العصور على وحدة </h2>
+                <h2 class="text-danger text-center">لم يتم العثور على وحدة </h2>
             </div>
         @endif
         </div>

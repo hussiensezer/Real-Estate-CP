@@ -185,7 +185,7 @@
                                         <label for="floor">رقم الدور : <span class="text-danger">*</span></label>
                                         <select class="custom-select mr-sm-2" name="floor" id="floor">
                                             <option selected disabled value="NULL">اختار الدور...</option>
-                                        @for($i = 1 ; $i <= 6 ; $i++)
+                                        @for($i = 0 ; $i <= 6 ; $i++)
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
 

@@ -31,7 +31,7 @@ class AdsController extends Controller
 //        $contacts = Contact::select(['phone'])->where('phone','!=' ,'')->inRandomOrder()->limit(2000)->get();
 
         try {
-            $contacts = Contact::select(['id','phone'])->where('phone','!=' ,'')->whereBetween('id',[$request->ppl_start, $request->ppl_end])->count();
+            $contacts = Contact::select(['id','phone'])->where('phone','!=' ,'')->whereBetween('id',[$request->ppl_start, $request->ppl_end])->get();
             foreach($contacts as $contact) {
                 $response = Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/chat', [
                     'token' => auth()->user()->token,
