@@ -111,7 +111,7 @@
                                     <div class="col-md-4 my-3">
                                         <b class="text-primary text-bold">رقم الدور : - </b>
                                         @if($apartment->floor !== NULL)
-                                            <span>{{$apartment->floor}}</span>
+                                            <span> @lang("global.floor_".$apartment->floor)</span>
                                         @else
                                             <del class="text-danger">لا توجد معلومات</del>
                                         @endif
@@ -562,75 +562,6 @@
                                             </div>
                                         @endforeach
                                         </div>
-{{--                                        <div class="col-md-4">--}}
-{{--                                            @foreach($apartment->images as $image)--}}
-{{--                                            <img src="{{ URL::to('public/gallery/images/'. $image->path)}}" alt="" style="width:50%; height: 400px" >--}}
-{{--                                                <!-- Button trigger modal -->--}}
-{{--                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#image_{{$image->id}}">--}}
-{{--                                                    <i class="fa fa-trash"></i>--}}
-{{--                                                    حذف الصورة--}}
-{{--                                                </button>--}}
-
-{{--                                                <!-- Modal -->--}}
-{{--                                                <div class="modal fade" id="image_{{$image->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-{{--                                                    <div class="modal-dialog">--}}
-{{--                                                        <div class="modal-content">--}}
-{{--                                                            <div class="modal-header">--}}
-{{--                                                                <h5 class="modal-title" id="exampleModalLabel">هل متاكد من حذف الصورة</h5>--}}
-
-{{--                                                            </div>--}}
-{{--                                                            <div class="modal-body">--}}
-{{--                                                                <img src="{{ URL::to('public/gallery/images/'. $image->path)}}" alt="" class="w-100">--}}
-{{--                                                            </div>--}}
-{{--                                                            <div class="modal-footer">--}}
-{{--                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button>--}}
-{{--                                                                <form action="{{route("dashboard.apartment.destroyImage" , $image->id)}}" method="post">--}}
-{{--                                                                    @csrf--}}
-{{--                                                                    {{method_field('delete')}}--}}
-{{--                                                                    <button type="submit" class="btn btn-danger">--}}
-{{--                                                                        <i class="fa fa-trash"></i>--}}
-{{--                                                                        تاكيد عملية الحذف--}}
-{{--                                                                    </button>--}}
-{{--                                                                </form>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                                <!-- End Model-->--}}
-
-{{--                                            <!-- Button trigger modal -->--}}
-{{--                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#download_{{$image->id}}">--}}
-{{--                                                <i class="fa fa-download"></i>--}}
-{{--                                                تحميل الصورة--}}
-{{--                                            </button>--}}
-
-{{--                                            <!-- Modal -->--}}
-{{--                                            <div class="modal fade" id="download_{{$image->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-{{--                                                <div class="modal-dialog">--}}
-{{--                                                    <div class="modal-content">--}}
-{{--                                                        <div class="modal-header">--}}
-{{--                                                            <h5 class="modal-title" id="exampleModalLabel">هل متاكد من تحميل الصورة</h5>--}}
-
-{{--                                                        </div>--}}
-{{--                                                        <div class="modal-body">--}}
-{{--                                                            <img src="{{ URL::to('public/gallery/images/'. $image->path)}}" alt="" class="w-100">--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="modal-footer">--}}
-{{--                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button>--}}
-
-{{--                                                                <a href="{{ URL::to('public/gallery/images/'. $image->path)}}" class="btn btn-success" download="">--}}
-{{--                                                                    <i class="fa fa-trash"></i>--}}
-{{--                                                                  تحميل--}}
-{{--                                                                </a>--}}
-
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <!-- End Model-->--}}
-{{--                                            <a href="{{URL::to('public/gallery/images/'. $image->path)}}}}" download=""> تحميل الصوره</a>--}}
-{{--                                        @endforeach--}}
-{{--                                        </div>--}}
 
 
                                 </div>

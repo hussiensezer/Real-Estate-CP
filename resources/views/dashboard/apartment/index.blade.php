@@ -95,7 +95,7 @@
                                     </td>
                                     <td title="الدور ">
                                         @if($apartment->floor !== NULL)
-                                            {{$apartment->floor}}
+                                            @lang("global.floor_".$apartment->floor)
                                         @else
                                             <del class="text-danger"> غير متوفر</del>
                                         @endif
