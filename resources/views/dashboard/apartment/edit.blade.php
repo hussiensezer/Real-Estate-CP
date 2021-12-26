@@ -117,13 +117,13 @@
                                                 <label for="floor">رقم الدور : <span class="text-danger">*</span></label>
                                                 <select class="custom-select mr-sm-2" name="floor" id="floor">
                                                     <option selected disabled value="NULL">اختار الدور...</option>
-                                                    <option value="0">@lang("global.floor_0")</option>
-                                                    <option value="1"> @lang("global.floor_1")</option>
-                                                    <option value="2"> @lang("global.floor_2")</option>
-                                                    <option value="3"> @lang("global.floor_3")</option>
-                                                    <option value="4"> @lang("global.floor_4")</option>
-                                                    <option value="5">@lang("global.floor_5") </option>
-                                                    <option value="6"> @lang("global.floor_6")</option>
+                                                    <option value="0" {{$apartment->floor == 0 ? 'selected' :''}}>@lang("global.floor_0")</option>
+                                                    <option value="1" {{$apartment->floor == 1 ? 'selected' :''}}> @lang("global.floor_1")</option>
+                                                    <option value="2" {{$apartment->floor == 2 ? 'selected' :''}}> @lang("global.floor_2")</option>
+                                                    <option value="3" {{$apartment->floor == 3 ? 'selected' :''}}> @lang("global.floor_3")</option>
+                                                    <option value="4" {{$apartment->floor == 4 ? 'selected' :''}}> @lang("global.floor_4")</option>
+                                                    <option value="5" {{$apartment->floor == 5 ? 'selected' :''}}>@lang("global.floor_5") </option>
+                                                    <option value="6" {{$apartment->floor == 6 ? 'selected' :''}}> @lang("global.floor_6")</option>
                                                 </select>
                                             </div>
                                             <div class="alert alert-danger floor d-none"></div>
