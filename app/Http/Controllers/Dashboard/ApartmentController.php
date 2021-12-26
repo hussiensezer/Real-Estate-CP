@@ -309,7 +309,7 @@ class ApartmentController extends Controller
         $totalBathrooms = " عدد الحمامات  " . $apartment->total_bathroom ;
         $apartmentSpace = " مساحة الشقة ". $apartment->apartment_space;
         $shortCode  = "  كود الوحدة ". $apartment->serial_no;
-        $floor =  " الدور " . $apartment->floor ;
+        $floor =  " الدور " . __("global.floor_".$apartment->floor);
 //        $view =   " الاطلالة " . trans('global.' . $apartment->view);
         $directions = $apartment->directions != NULL && $request->directions == 1 ? " الاتجاة " . trans('global.' . $apartment->directions) : '' ;
         $apartmentType = " حالة الوحدة " . trans('global.' . $apartment->apartment_type);
