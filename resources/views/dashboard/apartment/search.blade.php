@@ -102,20 +102,24 @@
                             </div>
                             <!-- End Col-->
 
-                            <!-- Start Col-->
-                            <div class="col-md-4 my-2">
-                                <div class="form-group">
-                                    <label for="floor">رقم الدور : <span class="text-danger">*</span></label>
-                                    <select class="custom-select mr-sm-2" name="floor" id="floor">
-                                        <option selected disabled value="NULL">اختار الدور...</option>
-                                            @for($i = 1 ; $i <= 6 ; $i++)
-                                            <option value="{{$i}}" {{request()->query("floor") == $i ? 'selected' : ''}} >{{$i}}</option>
-                                        @endfor
-                                    </select>
+                                <!-- Start Col-->
+                                <div class="col-md-4 my-2">
+                                    <div class="form-group">
+                                        <label for="floor">رقم الدور : <span class="text-danger">*</span></label>
+                                        <select class="custom-select mr-sm-2" name="floor" id="floor">
+                                            <option selected disabled value="NULL">اختار الدور...</option>
+                                            <option value="0">@lang("global.floor_0")</option>
+                                            <option value="1"> @lang("global.floor_1")</option>
+                                            <option value="2"> @lang("global.floor_2")</option>
+                                            <option value="3"> @lang("global.floor_3")</option>
+                                            <option value="4"> @lang("global.floor_4")</option>
+                                            <option value="5">@lang("global.floor_5") </option>
+                                            <option value="6"> @lang("global.floor_6")</option>
+                                        </select>
+                                    </div>
+                                    <div class="alert alert-danger floor d-none"></div>
                                 </div>
-                                <div class="alert alert-danger floor d-none"></div>
-                            </div>
-                            <!-- End Col-->
+                                <!-- End Col-->
 
 
 
@@ -355,7 +359,7 @@
                                             </td>
                                             <td>
                                                 @if($apartment->floor !== NULL)
-                                                    {{$apartment->floor}}
+                                                    @lang("global.floor_".$apartment->floor)
                                                 @else
                                                     <del class="text-danger"> غير متوفر</del>
                                                 @endif
