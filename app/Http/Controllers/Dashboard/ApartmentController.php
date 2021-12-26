@@ -321,9 +321,6 @@ class ApartmentController extends Controller
             '.
             $city . '
             '
-            .
-            $city . '
-            '
             . $apartmentSpace . '
             '
             . $totalRooms . '
