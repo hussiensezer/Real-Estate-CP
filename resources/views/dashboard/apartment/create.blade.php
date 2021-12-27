@@ -133,6 +133,7 @@
                                                     <option value="{{$city->id}}">{{$city->city}}</option>
                                                 @endforeach
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
                                         </div>
                                         <div class="alert alert-danger city d-none"></div>
                                     </div>
@@ -145,6 +146,7 @@
                                         <select class="custom-select mr-sm-2 stepId" name="step" id="step">
                                             <option selected disabled>اختار المرحلة...</option>
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
                                     </div>
                                     <div class="alert alert-danger step d-none"></div>
                                 </div>
@@ -157,6 +159,8 @@
                                         <select class="custom-select mr-sm-2 groupId" name="group" id="group">
                                             <option selected disabled>اختار المجموعة...</option>
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger group d-none"></div>
                                 </div>
@@ -174,6 +178,8 @@
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger building d-none"></div>
                                 </div>
@@ -193,6 +199,8 @@
                                                 <option value="5">@lang("global.floor_5") </option>
                                                 <option value="6"> @lang("global.floor_6")</option>
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger floor d-none"></div>
                                 </div>
@@ -210,6 +218,8 @@
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger apartment_no d-none"></div>
                                 </div>
@@ -226,6 +236,8 @@
                                             <option value="parking">باركينج</option>
                                             <option value="opening">مفتوح</option>
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger view d-none"></div>
                                 </div>
@@ -242,6 +254,8 @@
                                             <option value="west"> غرب</option>
                                             <option value="south">جنواب</option>
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger directions d-none"></div>
                                 </div>
@@ -258,6 +272,8 @@
                                             <option value="company_change"> تعديل خاص</option>
 
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger directions d-none"></div>
                                 </div>
@@ -272,6 +288,8 @@
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger total_rooms d-none"></div>
                                 </div>
@@ -287,6 +305,8 @@
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
                                         </select>
+                                        <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                     </div>
                                     <div class="alert alert-danger total_bathroom d-none"></div>
                                 </div>
@@ -415,9 +435,17 @@
 
     <script>
 $(document).ready(function() {
-
-
-
+    // Return To The Default Value Of Select Box
+    $("select").on("change",function () {
+        if($(this).val() != '') {
+            $(this).siblings("span.returnDefaultValue").removeClass("d-none");
+        }
+    });
+    $("span.returnDefaultValue").on("click",function () {
+        let select = $(this).siblings("select")[0].selectedIndex = 0;
+        $(this).addClass("d-none");
+    });
+    // End Return To The Default Value Of Select Box;
     //Start Store Apartment
         $("form#apartmentFrom").on("submit",function (e) {
             e.preventDefault();

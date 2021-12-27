@@ -17,10 +17,11 @@ class CreateFeedbackTable extends Migration
             $table->id();
             $table->string("client_name");
             $table->string("client_number");
-            $table->string("apartment_code", 10);
+            $table->string("apartment_code", 10)->nullable();
             $table->unsignedBigInteger("user_id");
             $table->text("description");
-            $table->timestamp("other_feedback");
+            $table->timestamp("time_feedback")->nullable();
+            $table->timestamp("other_feedback")->nullable();
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade")->cascadeOnUpdate();

@@ -24,7 +24,7 @@ class StepController extends Controller
             'cityId' => function($q) {
                 $q->select(['id','city']);
             }
-        ])->latest()->paginate();
+        ])->latest()->get();
         return view("dashboard.steps.index" , compact('steps'));
     }  // End Index
 

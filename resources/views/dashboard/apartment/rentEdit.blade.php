@@ -55,6 +55,16 @@
                                     <!-- Start Col-->
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label for="rent_value">القيمة الايجارية : <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" name="rent_value"  value="{{ $rent->rent_value}}">
+                                        </div>
+                                        <div class="alert alert-danger rent_value d-none"></div>
+
+                                    </div>
+                                    <!-- End Col-->
+                                    <!-- Start Col-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="rent_insurance">التامين : <span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" name="rent_insurance" value="{{ $rent->rent_insurance}}">
                                         </div>
@@ -63,16 +73,7 @@
                                     </div>
                                     <!-- End Col-->
 
-                                    <!-- Start Col-->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="rent_value">القيمة الايجارية : <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" name="rent_value"  value="{{ $rent->rent_value}}">
-                                        </div>
-                                        <div class="alert alert-danger rent_value d-none"></div>
 
-                                    </div>
-                                    <!-- End Col-->
 
                                     <!-- Start Col-->
                                     <div class="col-md-6">

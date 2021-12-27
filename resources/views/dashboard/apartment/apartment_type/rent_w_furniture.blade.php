@@ -2,16 +2,6 @@
     <div class="col-md-12">
         <h6 style="font-family: 'Cairo', sans-serif;color: blue">  الايجار المفروش</h6><br>
     </div>
-    <!-- Start Col-->
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="rent_insurance">التامين : <span class="text-danger">*</span></label>
-            <input type="number" class="form-control" name="rent_insurance">
-        </div>
-        <div class="alert alert-danger rent_insurance d-none"></div>
-
-    </div>
-    <!-- End Col-->
 
     <!-- Start Col-->
     <div class="col-md-6">
@@ -23,6 +13,18 @@
 
     </div>
     <!-- End Col-->
+    <!-- Start Col-->
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="rent_insurance">التامين : <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" name="rent_insurance">
+        </div>
+        <div class="alert alert-danger rent_insurance d-none"></div>
+
+    </div>
+    <!-- End Col-->
+
+
 
     <!-- Start Col-->
     <div class="col-md-6">

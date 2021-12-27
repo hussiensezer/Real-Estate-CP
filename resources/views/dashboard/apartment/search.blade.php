@@ -31,7 +31,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="serial"> السريال </label>
-                                        <input type="text" class="form-control" name="serial" {{request()->query("serial")}}>
+                                        <input type="text" class="form-control" name="serial" value="{{request()->query("serial")}}">
                                     </div>
                                 </div>
 
@@ -65,7 +65,7 @@
                             <div class="col-md-4 my-2">
                                 <div class="form-group">
                                     <label for="step">المرحلة : <span class="text-danger">*</span></label>
-                                    <select class="custom-select mr-sm-2 stepId" name="step" id="step">
+                                    <select class="custom-select mr-sm-2 stepId" name="step[]" id="step" >
                                         <option selected disabled>اختار المرحلة...</option>
                                     </select>
                                 </div>
@@ -500,6 +500,7 @@
                     dataType: "json",
                     success: function (data) {
                         $(".stepId").empty();
+                        $(".stepId").prop("multiple", true);
                         $('.stepId').append("<option selected disabled> اختار المرحلة</option>");
                         $.each(data,function (id,step) {
                             $(".stepId").append(`<option value="${step.id}" ${step.id == stepId ? 'selected' : ''} >${step.name} </option>`);
@@ -534,31 +535,31 @@
                 console.log("Empty StepId");
             }
 
-        // Start No Garden
-        $(document).on('click','.noGarden',function () {
-            $("#yesGarden").replaceWith(`
-              <select class="custom-select mr-sm-2" name="garden" id="garden">
-                    <option selected disabled> هل يوجد حديقة ...</option>
-                    <option value="1"> نعم</option>
-                    <option value="0"> لا</option>
-                </select>
-            `);
-            $(this).addClass("d-none");
-        });
-        // End No Garden
-
-            if(getUrlParameter("garden") != 0) {
-                $("#garden").replaceWith(`<input type="number" name="garden" id="yesGarden"class="form-control" placeholder="اكتب مساحة الحديقة بلمتر" value="${getUrlParameter("garden")}"> `);
-                $(".noGarden").removeClass("d-none")
-            }
-        // Start Select Garden
-        $(document).on('change',"select#garden",function () {
-            if($(this).val() == 1){
-                $(this).replaceWith('<input type="number" name="garden" id="yesGarden"class="form-control" placeholder="اكتب مساحة الحديقة بلمتر"> ');
-                $(".noGarden").removeClass("d-none")
-            }
-        });
-        // End Select Garden
+        // // Start No Garden
+        // $(document).on('click','.noGarden',function () {
+        //     $("#yesGarden").replaceWith(`
+        //       <select class="custom-select mr-sm-2" name="garden" id="garden">
+        //             <option selected disabled> هل يوجد حديقة ...</option>
+        //             <option value="1"> نعم</option>
+        //             <option value="0"> لا</option>
+        //         </select>
+        //     `);
+        //     $(this).addClass("d-none");
+        // });
+        // // End No Garden
+        //
+        //     if(getUrlParameter("garden") != 0) {
+        //         $("#garden").replaceWith(`<input type="number" name="garden" id="yesGarden"class="form-control" placeholder="اكتب مساحة الحديقة بلمتر" value="${getUrlParameter("garden")}"> `);
+        //         $(".noGarden").removeClass("d-none")
+        //     }
+        // // Start Select Garden
+        // $(document).on('change',"select#garden",function () {
+        //     if($(this).val() == 1){
+        //         $(this).replaceWith('<input type="number" name="garden" id="yesGarden"class="form-control" placeholder="اكتب مساحة الحديقة بلمتر"> ');
+        //         $(".noGarden").removeClass("d-none")
+        //     }
+        // });
+        // // End Select Garden
 
         // Start Get Step Of City
         $(document).on("change",".cityId" ,function(){
@@ -574,6 +575,7 @@
                         dataType: "json",
                         success: function (data) {
                             $(".stepId").empty();
+                            $(".stepId").prop("multiple", true);
                             $('.stepId').append("<option selected disabled> اختار المرحلة</option>");
                             $.each(data,function (id,step) {
                                 $(".stepId").append('<option value="'+

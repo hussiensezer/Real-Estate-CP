@@ -86,6 +86,14 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="col-md-6">
+
+                                        <label> تاريخ المعاينة<span class="tx-danger">*</span></label>
+                                        <input type="datetime-local" name="time_feedback"  class="form-control" value="{{ date('Y-m-d\TH:i', strtotime($feedback->time_feedback)) }}">
+                                        @error('time_feedback')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
                                     <div class="col-md-6">
 

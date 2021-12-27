@@ -59,6 +59,8 @@
                                                     <option value="{{$city->id}}" {{$city->id == $apartment->city_id ? 'selected' : ''}}>{{$city->city}}</option>
                                                 @endforeach
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger city d-none"></div>
                                     </div>
@@ -74,6 +76,8 @@
                                                     <option value="{{$step->id}}" {{$step->id == $apartment->step_id ? 'selected' : ''}}>{{$step->name}}</option>
                                                 @endforeach
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger step d-none"></div>
                                     </div>
@@ -89,6 +93,8 @@
                                                     <option value="{{$group->id}}" {{$group->id == $apartment->group_id ? 'selected' : ''}}>{{$group->name}}</option>
                                                 @endforeach
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger group d-none"></div>
                                     </div>
@@ -106,6 +112,8 @@
                                                     <option value="{{$i}}" {{$i == $apartment->no_building ? 'selected' : ''}}>{{$i}}</option>
                                                 @endfor
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger building d-none"></div>
                                     </div>
@@ -125,6 +133,8 @@
                                                     <option value="5" {{$apartment->floor == 5 ? 'selected' :''}}>@lang("global.floor_5") </option>
                                                     <option value="6" {{$apartment->floor == 6 ? 'selected' :''}}> @lang("global.floor_6")</option>
                                                 </select>
+                                                <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                             </div>
                                             <div class="alert alert-danger floor d-none"></div>
                                         </div>
@@ -142,6 +152,8 @@
                                                     <option value="{{$i}}" {{$i == $apartment->no_apartment ? 'selected' : ''}}>{{$i}}</option>
                                                 @endfor
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger apartment_no d-none"></div>
                                     </div>
@@ -158,6 +170,8 @@
                                                 <option value="parking" {{"parking" == $apartment->view ? 'selected' : ''}}>باركينج</option>
                                                 <option value="opening" {{"opening" == $apartment->view ? 'selected' : ''}}>مفتوح</option>
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger view d-none"></div>
                                     </div>
@@ -174,6 +188,8 @@
                                                 <option value="west" {{"west" == $apartment->directions ? 'selected' : ''}}> غرب</option>
                                                 <option value="south" {{"south" == $apartment->directions ? 'selected' : ''}}>جنواب</option>
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger directions d-none"></div>
                                     </div>
@@ -188,6 +204,8 @@
                                                     <option value="{{$i}}" {{$i == $apartment->total_rooms ? 'selected' : ''}}>{{$i}}</option>
                                                 @endfor
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger total_rooms d-none"></div>
                                     </div>
@@ -203,6 +221,8 @@
                                                     <option value="{{$i}}" {{$i == $apartment->total_bathroom ? 'selected' : ''}}>{{$i}}</option>
                                                 @endfor
                                             </select>
+                                            <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                         </div>
                                         <div class="alert alert-danger total_bathroom d-none"></div>
                                     </div>
@@ -244,8 +264,9 @@
                                                     <option value="company" {{$apartment->decoration == "company" ? 'selected'  :'' }}>شركة</option>
                                                     <option value="private" {{$apartment->decoration == 'private' ? 'selected'  :'' }}> خاص</option>
                                                     <option value="company_change" {{$apartment->decoration == "company_change" ? 'selected'  :'' }}> تعديل خاص</option>
-
                                                 </select>
+                                                <span style="cursor: pointer" class="text-primary mt-3 d-none returnDefaultValue"> الوضع الافتراضى</span>
+
                                             </div>
                                             <div class="alert alert-danger directions d-none"></div>
                                         </div>
@@ -346,6 +367,18 @@
     @toastr_js
     @toastr_render
     <script>
+
+        // Return To The Default Value Of Select Box
+        $("select").on("change",function () {
+            if($(this).val() != '') {
+                $(this).siblings("span.returnDefaultValue").removeClass("d-none");
+            }
+        });
+        $("span.returnDefaultValue").on("click",function () {
+            let select = $(this).siblings("select")[0].selectedIndex = 0;
+            $(this).addClass("d-none");
+        });
+        // End Return To The Default Value Of Select Box;
         //Start Change Garden
         $(document).on('click','.noGarden',function () {
             $("#yesGarden").replaceWith(`

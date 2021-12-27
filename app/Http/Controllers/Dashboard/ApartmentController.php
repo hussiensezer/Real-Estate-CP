@@ -169,8 +169,6 @@ class ApartmentController extends Controller
         $apartment = Apartment::with([
             'cityId','stepId','groupId','userId','sell','rent','owner','mediator','images','media','feedback.user'
         ])->withCount(["images", 'sell','rent','media','owner','mediator','feedback'])->findOrFail($id);
-
-//        return $apartment;
         return view("dashboard.apartment.show" , compact('apartment'));
     }// End Show
 
@@ -361,14 +359,14 @@ class ApartmentController extends Controller
 //            ]);
 //        }
 
-//            foreach ($apartment->images as $img) {
-//                $images =  Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/image', [
-//                    'token' => auth()->user()->token,
-//                    'to' =>  '+2' . $request->phone,
-//                    "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
-//                    'caption' => 'Testing'
-//                ]);
-//            }
+            foreach ($apartment->images as $img) {
+                $images =  Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/image', [
+                    'token' => auth()->user()->token,
+                    'to' =>  '+2' . $request->phone,
+                    "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
+                    'caption' => 'Testing'
+                ]);
+            }
             DB::commit();
             toastr()->info(" تم ارسال بيانات الوحدة");
             return redirect()->back();
@@ -506,10 +504,10 @@ class ApartmentController extends Controller
         $serial = isset($request->serial) && !empty($request->serial) ? ['serial_no', $request->serial] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $apartment_type = isset($request->apartment_type) && !empty($request->apartment_type) ? ['apartment_type', $request->apartment_type] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $city = isset($request->city) && !empty($request->city) ? ['city_id', $request->city] : ['apartment_type' , "!=" , 'Hussien Attia'];
-        $step = isset($request->step) && !empty($request->step) ? ['step_id', $request->step] :  ['apartment_type' , "!=" , 'Hussien Attia'];
+//        $step = isset($request->step) && !empty($request->step) ? $request->step:  ['apartment_type' , "!=" , 'Hussien Attia'];
         $group = isset($request->group) && !empty($request->group) ? ['group_id', $request->group] :  ['apartment_type' , "!=" , 'Hussien Attia'];
         $building = isset($request->building) && !empty($request->building) ? ['no_building', $request->building] : ['apartment_type' , "!=" , 'Hussien Attia'];
-        $floor = isset($request->floor) && !empty($request->floor) ? ['floor', $request->floor] : ['apartment_type' , "!=" , 'Hussien Attia'];
+        $floor = isset($request->floor)  && $request->floor >= 0 ? ['floor', $request->floor] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $apartment_no = isset($request->apartment_no) && !empty($request->apartment_no) ? ['no_apartment', $request->apartment_no] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $view = isset($request->view) && !empty($request->view) ? ['view', $request->view] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $directions = isset($request->directions) && !empty($request->directions) ? ['directions', $request->directions] : ['apartment_type' , "!=" , 'Hussien Attia'];
@@ -517,31 +515,53 @@ class ApartmentController extends Controller
         $total_bathroom = isset($request->total_bathroom) && !empty($request->total_bathroom) ? ['total_bathroom', $request->total_bathroom] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $apartment_space_from = isset($request->apartment_space_from) && !empty($request->apartment_space_from) ?$request->apartment_space_from: 0;
         $apartment_space_to =isset($request->apartment_space_to) && !empty($request->apartment_space_to) ?$request->apartment_space_to: 10000000;
-        $garden = isset($request->garden) && !empty($request->garden) ? ['garden_space', $request->garden] : ['apartment_type' , "!=" , 'Hussien Attia'];
+        $garden = '';
         $decoration = isset($request->decoration) && !empty($request->decoration) ? ['decoration', $request->decoration] : ['apartment_type' , "!=" , 'Hussien Attia'];
         $moneyStart =isset($request->moneyStart) && !empty($request->moneyStart) ?$request->moneyStart: 1;
         $moneyEnd =isset($request->moneyEnd) && !empty($request->moneyEnd) ?$request->moneyEnd: 10000000;
 
-        $apartments = Apartment::
-            where([['available', 1],
-                $serial,$apartment_type,
-                $city,$step,$group,$building,$floor,$apartment_no,
-                $view,$directions,$total_rooms,$total_bathroom,$garden,$decoration])
-            ->whereBetween("apartment_space", [$apartment_space_from,$apartment_space_to])
-            ->whereBetween("money", [intval($moneyStart), intval($moneyEnd)])
-//
-            ->withCount(["images", 'sell','rent','media','owner','mediator'])
-            ->latest()
-            ->paginate()
-            ->withQueryString();
+        if($request->garden == 0) {
+            $garden =  ['garden_space','=',0];
+        }elseif(isset($request->garden) && !empty($request->garden )){
+            $garden =  ['garden_space','>',0];
+        }else {
+            $garden = ['apartment_type' , "!=" , 'Hussien Attia'];
+        }
+
         $numbers = 100;
+        if(isset($request->step) && is_array($request->step) && count($request->step) > 1) {
+            $step = isset($request->step) && !empty($request->step) ? $request->step: '';
+            $apartments = Apartment::where([['available', 1],
+                $serial,$apartment_type,
+                $city,$group,$building,$floor,$apartment_no,
+                $view,$directions,$total_rooms,$total_bathroom,$garden,$decoration])
+                ->whereBetween("apartment_space", [$apartment_space_from,$apartment_space_to])
+                ->whereBetween("money", [intval($moneyStart), intval($moneyEnd)])
+                ->whereIn('step_id',$step)
+                ->withCount(["images", 'sell','rent','media','owner','mediator'])
+                ->latest()
+                ->paginate()
+                ->withQueryString();
+        }else {
+            $step = isset($request->step) && !empty($request->step) ? ['step_id', $request->step]: ['apartment_type' , "!=" , 'Hussien Attia'];
+            $apartments = Apartment::where([['available', 1],
+                $serial,$apartment_type,
+                    $city,$group,$building,$floor,$apartment_no,$step,
+                $view,$directions,$total_rooms,$total_bathroom,$garden,$decoration])
+                ->whereBetween("apartment_space", [$apartment_space_from,$apartment_space_to])
+                ->whereBetween("money", [intval($moneyStart), intval($moneyEnd)])
+                ->withCount(["images", 'sell','rent','media','owner','mediator'])
+                ->latest()
+                ->paginate()
+                ->withQueryString();
+        }
+
         return view("dashboard.apartment.search",compact('apartments','cities','numbers'));
     }
     public function destroySession(Request $request){
         Session::forget($request->all());
         $cities =  City::where("status" , 1)->get();
         $apartments = [];
-
         $numbers = 100;
         return view("dashboard.apartment.search",compact('cities', 'numbers','apartments'));
     }

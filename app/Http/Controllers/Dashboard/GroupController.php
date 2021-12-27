@@ -21,7 +21,7 @@ class GroupController extends Controller
     }
     public function index()
     {
-        $groups = Group::with(['cityId','stepId'])->latest()->paginate();
+        $groups = Group::with(['cityId','stepId'])->latest()->get();
 
         return view("dashboard.groups.index", compact('groups'));
     }

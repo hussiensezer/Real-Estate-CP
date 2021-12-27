@@ -41,7 +41,8 @@
                                 <th> الاسم العميل</th>
                                 <th> هاتف العميل  </th>
                                 <th>  كود الوحدة  </th>
-                                <th> تم المعاينة بواسطة</th>
+                                <th> تم الانشاء بواسطة</th>
+                                <td>تاريخ المعاينة</td>
                                 <th>تفصيل المعاينة </th>
                                 <th> ميعاد المتابعة القادمة </th>
                                 <th> تاريخ الانشاء</th>
@@ -57,6 +58,7 @@
                                     <td>{{$feed->client_number}}</td>
                                     <td>{{$feed->apartment_code}}</td>
                                     <td>{{$feed->user->name}}</td>
+                                    <td>{{$feed->time_feedback}}</td>
                                     <td>{{$feed->description}}</td>
                                     <td>{{$feed->other_feedback}}</td>
                                     <td>{{$feed->created_at}}</td>

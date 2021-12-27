@@ -32,6 +32,7 @@ class FeedbackController extends Controller
                 'client_name' =>$request->name ,
                 'client_number' => $request->phone,
                 'apartment_code' =>$request->apartment_code ,
+                'time_feedback' =>$request->time_feedback ,
                 'user_id' => auth()->user()->id,
                 'description' => $request->description,
                 'other_feedback' => $request->other_feedback,
@@ -66,10 +67,12 @@ class FeedbackController extends Controller
             $feedback->update([
                 'client_name' =>$request->name ,
                 'client_number' => $request->phone,
-                'apartment_code' =>$request->apartment_code ,
+                'apartment_code' =>$request->apartment_code,
+                'time_feedback' =>$request->time_feedback,
                 'description' => $request->description,
                 'other_feedback' => $request->other_feedback,
             ]);
+
             toastr()->info("تم تعديل المعاينة بنجاح");
             return redirect()->back();
         }

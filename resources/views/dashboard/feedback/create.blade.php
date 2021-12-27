@@ -88,6 +88,15 @@
 
                                     <div class="col-md-6">
 
+                                        <label> تاريخ المعاينة<span class="tx-danger">*</span></label>
+                                        <input type="datetime-local" name="time_feedback"  class="form-control" value="{{old('time_feedback')}}">
+                                        @error('time_feedback')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6">
+
                                         <label> ميعاد المعاينة القادمة<span class="tx-danger">*</span></label>
                                         <input type="datetime-local" name="other_feedback"  class="form-control" value="{{old('other_feedback')}}">
                                         @error('other_feedback')

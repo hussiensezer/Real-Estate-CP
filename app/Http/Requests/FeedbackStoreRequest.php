@@ -26,8 +26,9 @@ class FeedbackStoreRequest extends FormRequest
         return [
             "name" => 'required',
             'phone' => 'required|min:10|max:11',
-            'apartment_code' => 'required|exists:apartments,serial_no',
-            'description' => 'required',
+            'apartment_code' => 'sometimes|nullable|exists:apartments,serial_no',
+            'time_feedback' => '',
+            'description' => '',
 
         ];
     }
