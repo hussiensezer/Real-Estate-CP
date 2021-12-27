@@ -555,7 +555,7 @@ class ApartmentController extends Controller
                 ->whereBetween("money", [intval($moneyStart), intval($moneyEnd)])
                 ->withCount(["images", 'sell','rent','media','owner','mediator'])
                 ->latest()
-                ->paginate()
+                ->paginate(20)
                 ->withQueryString();
         }
 
