@@ -65,7 +65,7 @@
                             <tbody>
                             @foreach($apartments as $i => $apartment)
 
-                                <tr class="">
+                                <tr>
                                     <td class="{{$apartment->complete == 0 ? 'bg-danger text-white' : ''}}">{{$i+ 1}}</td>
                                     <td title="تم الاضافة  بواسطة">{{$apartment->userId->name}}</td>
                                     <td title="المدينة">{{$apartment->cityId->city}}</td>
