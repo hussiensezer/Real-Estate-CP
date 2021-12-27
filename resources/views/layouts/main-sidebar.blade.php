@@ -95,6 +95,7 @@
                             <li><a href="{{route("dashboard.apartment.create")}}"> اضافة وحدة </a></li>
                             <li><a href="{{route("dashboard.apartment.mine")}}">  الوحدة المضافة بواسطتى </a></li>
                             <li><a href="{{route("dashboard.apartment.search")}}">  بحث عن وحدة </a></li>
+                            <li><a href="{{route("dashboard.apartment.notComplete")}}">  الوحدات الغير مكتملة </a></li>
                         </ul>
                     </li>
                     <!-- menu item Elements-->

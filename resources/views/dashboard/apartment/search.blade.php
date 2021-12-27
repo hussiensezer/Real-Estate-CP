@@ -328,7 +328,7 @@
                                     <tbody>
 
                                     @foreach($apartments as $i => $apartment)
-                                        @if($apartment->user_id == auth()->user()->id || auth()->user()->can('info_access'))
+
                                         <tr>
                                             <td>{{$i+ 1}}</td>
                                             <td>{{$apartment->userId->name}}</td>
@@ -441,7 +441,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif
+
                                     @endforeach
 
                                     </tbody>

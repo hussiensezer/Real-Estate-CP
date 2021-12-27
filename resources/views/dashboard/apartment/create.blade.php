@@ -396,6 +396,18 @@
 
                                 </div>
                                 <!-- End Col -->
+                                <!-- Start Col-->
+                                <div class="col-md-6 my-2">
+                                    <div class="form-group">
+                                        <label for="complete">مكتمل  : <span class="text-danger">*</span></label>
+                                        <select class="custom-select mr-sm-2" name="complete" id="complete">
+                                            <option value="1">نعم</option>
+                                            <option value="0"> لا</option>
+                                        </select>
+                                    </div>
+                                    <div class="alert alert-danger directions d-none"></div>
+                                </div>
+                                <!-- End Col-->
 
                                 <div class="col-md-12">
                                     <div class="form-group">

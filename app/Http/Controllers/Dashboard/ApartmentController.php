@@ -58,6 +58,7 @@ class ApartmentController extends Controller
 
         DB::beginTransaction();
 
+
       try{
           $randomSerialNumber = '';
           $money = '';
@@ -97,6 +98,7 @@ class ApartmentController extends Controller
             'comments' => $request->apartment_comment,
             'money' => $money,
             'available' => 1,
+            'complete' => $request->complete,
           ]);
           switch ($request->apartment_type) {
              case ('sell'):
@@ -214,6 +216,7 @@ class ApartmentController extends Controller
                 'videos' => $request->hasFile('videos') ? 1 : 0,
                 'comments' => $request->comments,
                 'available' => $request->status,
+                'complete' => $request->complete,
              ]);
             if($request->hasFile("images")) {
                 foreach ($apartment->images as $image) {
@@ -336,7 +339,7 @@ class ApartmentController extends Controller
             '. $number . '
             '
         ;
-
+        return $body;
         $response = Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/chat', [
             'token' => auth()->user()->token,
             'to' =>  '+2' . $request->phone,
@@ -556,6 +559,7 @@ class ApartmentController extends Controller
                 ->withQueryString();
         }
 
+
         return view("dashboard.apartment.search",compact('apartments','cities','numbers'));
     }
     public function destroySession(Request $request){
@@ -582,4 +586,13 @@ class ApartmentController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()] );
         }
     }
+    public function notComplete()
+    {
+        $apartments =  Apartment::where('complete', '0')->with([
+            'cityId','stepId','groupId','userId'
+        ])->withCount(["images", 'sell','rent','media','owner','mediator'])->latest()->paginate(20)->withQueryString();
+
+        return view("dashboard.apartment.notComplete", compact('apartments'));
+    } // End Index
+
 }

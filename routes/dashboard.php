@@ -41,6 +41,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
         // Apartment Route
         Route::get("apartment/index" , 'ApartmentController@index')->name("apartment.index");
+        Route::get("apartment/notComplete" , 'ApartmentController@notComplete')->name("apartment.notComplete");
         Route::get("apartment/changeTextType" , 'ApartmentController@changeTextType')->name("apartment.changeTextType");
         Route::get("apartment/mine" , 'ApartmentController@mine')->name("apartment.mine");
         Route::get("apartment/search" , 'ApartmentController@search')->name("apartment.search");

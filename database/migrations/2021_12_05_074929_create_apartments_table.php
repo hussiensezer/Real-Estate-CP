@@ -39,6 +39,7 @@ class CreateApartmentsTable extends Migration
             $table->boolean("videos")->default(0);  // هل يوجد فيديوهان
             $table->text("comments")->nullable(); // ملاحظات
             $table->boolean("available")->nullable(1) ; // هل متاحة ول لا
+            $table->boolean("complete")->nullable(0) ; // هل البيانات مكتملة ولا
             $table->integer("money")->nullable();
             $table->timestamps();
 

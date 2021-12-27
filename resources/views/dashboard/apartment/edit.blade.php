@@ -352,6 +352,18 @@
                                             </select>
                                         </div>
                                     </div>
+                                        <!-- Start Col-->
+                                        <div class="col-md-6 my-2">
+                                            <div class="form-group">
+                                                <label for="complete">مكتمل  : <span class="text-danger">*</span></label>
+                                                <select class="custom-select mr-sm-2" name="complete" id="complete">
+                                                    <option value="1" {{"1" == $apartment->complete ? 'selected' : ''}}>نعم</option>
+                                                    <option value="0" {{"0" == $apartment->complete ? 'selected' : ''}}> لا</option>
+                                                </select>
+                                            </div>
+                                            <div class="alert alert-danger directions d-none"></div>
+                                        </div>
+                                        <!-- End Col-->
                                 </div>
                                 <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">تعديل </button>
                             </form>
