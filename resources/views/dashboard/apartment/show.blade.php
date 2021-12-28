@@ -21,8 +21,8 @@
             <div class="card card-statistics h-100">
                 <div class="card-header ">
                     <div class="row">
-                        <h5 class="col-md-3">  بيانات الوحدات</h5>
-                        <div class="col-md-3">
+                        <h5 class="col-md-2">  بيانات الوحدات</h5>
+                        <div class="col-md-2">
                            @if($apartment->available == 1)
                                <div class="badge badge-success">متاحة</div>
                            @else
@@ -46,6 +46,30 @@
                             <a href="{{route("dashboard.apartment.whatsApp", $apartment->id)}}" class="btn btn-outline-success btn-sm">
                                 <i class="fa fa-whatsapp"></i>
                             </a>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="dropdown">
+                                <button class="btn btn-outline-primary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{route("dashboard.apartment.edit", $apartment->id)}}">تعديل بيانات الوحدة</a>
+                                    @if($apartment->owner_count == 1)
+                                        <a class="dropdown-item" href="{{route("dashboard.apartment.owner.edit", $apartment->id)}}"> تعديل بيانات المالك</a>
+                                    @endif
+                                    @if($apartment->mediator_count == 1)
+                                        <a class="dropdown-item" href="{{route("dashboard.apartment.mediator.edit", $apartment->id)}}">تعديل بيانات الوسيط </a>
+                                    @endif
+                                    @if($apartment->sell_count == 1)
+                                        <a class="dropdown-item" href="{{route("dashboard.apartment.sell.edit", $apartment->id)}}">تعديل بيانات البيع </a>
+
+                                    @endif
+                                    @if($apartment->rent_count == 1)
+                                        <a class="dropdown-item" href="{{route("dashboard.apartment.rent.edit",$apartment->id)}}">تعديل بيانات الايجار </a>
+                                    @endif
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,13 +111,6 @@
                                             <del class="text-danger">لا توجد معلومات</del>
                                         @endif
                                     </div>
-                                    <!--End Col -->
-
-                                    <!--Start Col -->
-{{--                                    <div class="col-md-4 my-3">--}}
-{{--                                        <b class="text-primary text-bold">تم الاضافة بواسطة : - </b>--}}
-{{--                                        <span>{{$apartment->user_id !== NULL ? $apartment->userId->name : 'لا توجد معلومات'}}</span>--}}
-{{--                                    </div>--}}
                                     <!--End Col -->
 
                                     <!--Start Col -->

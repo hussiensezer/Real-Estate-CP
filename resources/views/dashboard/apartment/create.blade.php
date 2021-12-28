@@ -560,7 +560,7 @@ $(document).ready(function() {
     $(document).on('change',"select#total_installments",function () {
             let totalAksat = "عدد الاقساط :-",
                 valueElkast = " قيمة كل قسط :- ",
-                agmaleAlaksat = " الجمالى مجموع الاقساط :-",
+                agmaleAlaksat = " اجمالى مجموع الاقساط :-",
                 algha = "الجهة التابعة للاقساط :-",
                     lastWord = totalAksat + "&#10; &#10;" + valueElkast + "&#10; &#10;" + agmaleAlaksat + "&#10; &#10;" + algha;
         if($(this).val() == 1){

@@ -304,42 +304,38 @@ class ApartmentController extends Controller
 
         DB::beginTransaction();
         try{
-        $apartment = Apartment::with(['images', 'cityId','stepId'])->findOrfail($id);
+        $apartment = Apartment::with(['images','rent', 'sell' ,'cityId','stepId'])->findOrfail($id);
+
 
         $totalRooms =  "عدد الغرف" . $apartment->total_rooms ;
         $totalBathrooms = " عدد الحمامات  " . $apartment->total_bathroom ;
-        $apartmentSpace = " مساحة الشقة ". $apartment->apartment_space;
+        $apartmentSpace = " مساحة الوحدة ". $apartment->apartment_space;
         $shortCode  = "  كود الوحدة ". $apartment->serial_no;
-        $floor =  " الدور " . __("global.floor_".$apartment->floor);
-//        $view =   " الاطلالة " . trans('global.' . $apartment->view);
+        $floor =  " الطابق " . __("global.floor_".$apartment->floor);
         $directions = $apartment->directions != NULL && $request->directions == 1 ? " الاتجاة " . trans('global.' . $apartment->directions) : '' ;
-        $apartmentType = " حالة الوحدة " . trans('global.' . $apartment->apartment_type);
+        $apartmentType = trans('global.' . $apartment->apartment_type);
         $step = "  المرحلة " . $apartment->stepId->name;
         $city = "  المدينة " . $apartment->cityId->city;
-        $number =  "  للاستفسار ". "01004498583";
-        $body =
-            $apartmentType . '
-            '.
-            $city . '
-            '
-            . $apartmentSpace . '
-            '
-            . $totalRooms . '
-            '
-            . $totalBathrooms . '
-            '
-            . $floor . '
-            '
-//            . $view . '
-//            '
-            . $directions .'
-            '
-            . $shortCode . '
-            
-            '. $number . '
-            '
+        $decoration = $apartment->decoration != NULL ?   " التشطيب " . trans('global.'. $apartment->decoration) : '';
+        $money = " السعر " .  $apartment->money;
+        $insurance = $apartment->apartment_type != 'sell' ? " التامين " . isset($apartment->rent->rent_insurance) : '' ;
+        $installments =  $apartment->apartment_type == 'sell' && $apartment->sell->total_installments != 0 ? ' الاقساط ' . $apartment->sell->total_installments : '';
+        $body = '
+        '.$apartmentType .'
+        '. $apartmentSpace . '
+        '. $shortCode . '
+        '. $city . '
+        '. $totalRooms . '
+        '. $totalBathrooms . '
+        '. $floor . '
+        '. $step . '
+        '. $decoration .'
+        '. $directions . '
+        '. $money . '
+        '. $insurance . '
+        '. $installments
         ;
-        return $body;
+
         $response = Http::post('https://api.ultramsg.com/'. auth()->user()->instance_id .'/messages/chat', [
             'token' => auth()->user()->token,
             'to' =>  '+2' . $request->phone,
@@ -508,7 +504,13 @@ class ApartmentController extends Controller
              ->join("cities", 'apartments.city_id', '=', 'cities.id')
              ->join('steps', 'apartments.step_id', '=','steps.id')
              ->join('groups', 'apartments.group_id', '=', 'groups.id')
-             ->select("users.name AS userName",'cities.city AS cityName','steps.name AS stepName','groups.name AS groupName','apartments.*');
+             ->select(
+                 "users.name AS userName",
+                 'cities.city AS cityName',
+                 'steps.name AS stepName',
+                 'groups.name AS groupName',
+                 'apartments.*'
+             );
 
          if(isset($request->serial) && !empty($request->serial)) {
              $query->where("serial_no",'=',$request->serial);
@@ -562,7 +564,6 @@ class ApartmentController extends Controller
         }
          $apartments =  $query->latest()->paginate(20)->withQueryString();
 
-//         return $request->apartment_space_from;
         return view("dashboard.apartment.search",compact('apartments','cities','numbers'));
     }
     public function destroySession(Request $request){

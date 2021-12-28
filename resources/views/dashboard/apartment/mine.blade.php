@@ -61,7 +61,7 @@
                             <tbody>
                             @foreach($apartments as $i => $apartment)
                                 <tr>
-                                    <td>{{$i+ 1}}</td>
+                                    <td class="{{$apartment->complete == 0 ? 'bg-danger text-white' : ''}}">{{$i+ 1}}</td>
                                     <td>{{$apartment->userId->name}}</td>
                                     <td>{{$apartment->cityId->city}}</td>
                                     <td>{{$apartment->stepId->name}}</td>

@@ -48,18 +48,18 @@
                                 <th scope="col">  المرحلة</th>
                                 <th scope="col">  المجموعة</th>
                                 <th scope="col">  نوع الوحدة</th>
+                                <th scope="col">السعر للتمليك او الايجار</th>
                                 <th scope="col">   المساحة</th>
                                 <th scope="col">   عدد الغرف</th>
                                 <th scope="col">   عدد الحمامات</th>
                                 <th scope="col">  الدور</th>
                                 <th scope="col"> الحالة</th>
                                 <th scope="col"> صور </th>
-
-                                <th>تاريخ الانشاء</th>
-
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th scope="col">تاريخ الانشاء</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,6 +72,13 @@
                                     <td title="المرحلة">{{$apartment->stepId->name}}</td>
                                     <td title="المجموعة">{{$apartment->groupId->name}}</td>
                                     <td title="نوع الوحدة" >@lang("global." .$apartment->apartment_type ) </td>
+                                    <td>
+                                        @if($apartment->money !== NULL)
+                                            {{$apartment->money}}
+                                        @else
+                                            <del class="text-danger"> غير متوفر</del>
+                                        @endif
+                                    </td>
                                     <td title="المساحة">
                                         @if($apartment->apartment_space !== NULL)
                                             {{$apartment->apartment_space}}
