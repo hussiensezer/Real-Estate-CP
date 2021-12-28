@@ -319,7 +319,7 @@ class ApartmentController extends Controller
         $decoration = $apartment->decoration != NULL ?   " التشطيب " . trans('global.'. $apartment->decoration) : '';
         $money = " السعر " .  $apartment->money;
         $insurance = $apartment->apartment_type != 'sell' ? " التامين " . isset($apartment->rent->rent_insurance) : '' ;
-        $installments =  $apartment->apartment_type == 'sell' && $apartment->sell->total_installments != 0 ? ' الاقساط ' . $apartment->sell->total_installments : '';
+        $installments =  $apartment->apartment_type == 'sell' && !empty($apartment->sell->total_installments) ? ' الاقساط ' . $apartment->sell->total_installments : '';
         $body = '
         '.$apartmentType .'
         '. $apartmentSpace . '
