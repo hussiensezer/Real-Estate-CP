@@ -57,7 +57,6 @@
                                     <td>{{$city->created_at}}</td>
                                     <td>{{$city->updated_at}}</td>
                                     <td>
-{{--                                        <a href="{{route("dashboard.city.show" , $user->id)}}" class="text-warning mx-2"><i class="fa fa-eye" title="مشاهد البروفايل"></i></a>--}}
                                         <a href="{{route("dashboard.city.edit" , $city->id)}}" class="text-primary mx-2"><i class="fa fa-edit" title=" تعديل البيانات"></i></a>
                                     </td>
                                 </tr>

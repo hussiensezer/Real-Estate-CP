@@ -108,7 +108,7 @@
 
 
 
-                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">اضافة </button>
+                                <button class="btn btn-primary btn-sm nextBtn btn-lg pull-right" type="submit">تعديل </button>
                             </form>
                         </div>
                     </div>

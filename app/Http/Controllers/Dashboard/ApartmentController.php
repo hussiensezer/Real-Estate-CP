@@ -322,8 +322,8 @@ class ApartmentController extends Controller
         $installments =  $apartment->apartment_type == 'sell' && !empty($apartment->sell->total_installments) ? ' الاقساط ' . $apartment->sell->total_installments : '';
         $body = '
         '.$apartmentType .'
-        '. $apartmentSpace . '
         '. $shortCode . '
+        '. $apartmentSpace . '
         '. $city . '
         '. $totalRooms . '
         '. $totalBathrooms . '
