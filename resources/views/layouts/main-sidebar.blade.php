@@ -6,10 +6,9 @@
                 <ul class="nav navbar-nav side-menu" id="sidebarnav">
                     <!-- menu item Dashboard-->
                     <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard">
+                        <a href="{{route("dashboard.index")}}">
                             <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">الصفحة الرائسية</span>
                             </div>
-
                             <div class="clearfix"></div>
                         </a>
 

@@ -363,7 +363,6 @@ class ApartmentController extends Controller
                     'token' => auth()->user()->token,
                     'to' =>  '+2' . $request->phone,
                     "image" =>"https://compuavision.com/cp/public/gallery/images/" .$img->path,
-                    'caption' => 'Testing'
                 ]);
             }
             DB::commit();
