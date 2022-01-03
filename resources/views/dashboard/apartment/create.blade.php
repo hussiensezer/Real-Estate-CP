@@ -412,7 +412,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="apartment_comment">ملاحظات الوحدة</label>
-                                        <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                                        <textarea name="apartment_comment" id="" cols="30" rows="5" class="form-control"></textarea>
                                     </div>
                                 </div>
 
