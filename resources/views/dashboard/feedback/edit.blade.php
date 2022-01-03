@@ -3,7 +3,7 @@
 
 
 @section('title')
-    تعديل مرحلة
+    تعديل معاينة
 @stop
 @endsection
 @section('page-header')
@@ -11,12 +11,12 @@
     <div class="page-title">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="mb-0">  تعديل مرحلة </h4>
+                <h4 class="mb-0">  تعديل معاينة </h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}" class="default-color">الصفحة الرائسية</a></li>
-                    <li class="breadcrumb-item active">تعديل مرحلة </li>
+                    <li class="breadcrumb-item active">تعديل معاينة </li>
                 </ol>
             </div>
         </div>
