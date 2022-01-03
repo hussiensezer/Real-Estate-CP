@@ -79,6 +79,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        {{ $feedback->links() }}
             </div>
         </div>
     </div>

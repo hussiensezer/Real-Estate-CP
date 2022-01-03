@@ -12,8 +12,8 @@ class FeedbackController extends Controller
 
     public function index()
     {
-        $feedback = Feedback::with('user')->latest()->paginate();
-//        return $feedback;
+        $feedback = Feedback::with('user')->latest()->paginate(20);
+
         return view("dashboard.feedback.index", compact('feedback'));
     }
 
