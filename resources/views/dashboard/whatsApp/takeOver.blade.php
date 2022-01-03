@@ -47,8 +47,8 @@
                     @endif
                     <div class="col-xs-12">
 
-                        <form action="https://api.ultramsg.com/instance1447/instance/takeover" method="post" enctype="application/x-www-form-urlencoded" id="GetTakeOver">
-                            <input type="hidden" class="tokenApi" name="token" value="jju48uohhs4rkkf9">
+                        <form action="{{$methods}}" method="post" enctype="application/x-www-form-urlencoded" id="GetTakeOver">
+                            <input type="hidden" class="tokenApi" name="token" value="{{$token}}">
                             <button type="submit" class="btn btn-success btn-md text-center m-auto">
                                 <i class="fa fa-angle-double-right"></i>
                                 Take Over
