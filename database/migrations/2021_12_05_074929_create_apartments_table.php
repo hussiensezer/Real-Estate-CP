@@ -26,7 +26,7 @@ class CreateApartmentsTable extends Migration
             $table->integer("total_rooms")->nullable();// عدد الغرف
             $table->integer("total_bathroom")->nullable();// عدد الحمامات
             $table->integer("garden_space")->nullable(); // مساحة الحديقة
-            $table->string("serial_no", '10')->nullable();
+            $table->string("serial_no", '10')->unique()->nullable();
             $table->boolean("gas")->nullable(); // غاز
             $table->boolean("water")->nullable(); // مياة
             $table->boolean("Electric")->nullable(); // كهرباء

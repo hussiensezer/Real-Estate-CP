@@ -63,43 +63,43 @@ class ApartmentController extends Controller
           $randomSerialNumber = '';
           $money = '';
           if($request->apartment_type == 'sell') {
-              $randomSerialNumber =  "S". random_int(100, 1000);
+              $randomSerialNumber =  "S". random_int(1000, 1000000);
               $money = $request->apartment_price;
           }elseif($request->apartment_type == 'rent') {
-              $randomSerialNumber =  "R". random_int(100, 1000);
+              $randomSerialNumber =  "R". random_int(1000, 1000000);
               $money = $request->rent_value;
           }elseif($request->apartment_type == 'rent_w_furniture') {
-             $randomSerialNumber =  "RF". random_int(100, 1000);
+             $randomSerialNumber =  "RF". random_int(1000, 1000000);
               $money = $request->rent_value;
           }
-          $apartment = Apartment::create([
-            "city_id" => $request->city,
-            "step_id" => $request->step,
-            "group_id" => $request->group,
-            "user_id" => auth()->user()->id,
-            'no_building' => $request->building,
-            "floor" => $request->floor,
-            'no_apartment' => $request->apartment_no,
-            "view" => $request->view,
-            "directions" => $request->directions,
-            'apartment_space' =>$request->apartment_space,
-            'total_rooms' => $request->total_rooms,
-            'total_bathroom' => $request->total_bathroom,
-            'garden_space' =>$request->garden,
-            'serial_no' => $randomSerialNumber,
-            'gas' => $request->gas,
-            'water' => $request->water,
-            'Electric' =>$request->electric,
-            'telephone' => $request->telephone,
-            'apartment_type' => $request->apartment_type,
-            'decoration' => $request->decoration,
-            'photos' => $request->hasFile('images') ? 1 : 0,
-            'videos' => $request->hasFile('videos') ? 1 : 0,
-            'comments' => $request->apartment_comment,
-            'money' => $money,
-            'available' => 1,
-            'complete' => $request->complete,
-          ]);
+              $apartment = Apartment::create([
+                  "city_id" => $request->city,
+                  "step_id" => $request->step,
+                  "group_id" => $request->group,
+                  "user_id" => auth()->user()->id,
+                  'no_building' => $request->building,
+                  "floor" => $request->floor,
+                  'no_apartment' => $request->apartment_no,
+                  "view" => $request->view,
+                  "directions" => $request->directions,
+                  'apartment_space' =>$request->apartment_space,
+                  'total_rooms' => $request->total_rooms,
+                  'total_bathroom' => $request->total_bathroom,
+                  'garden_space' =>$request->garden,
+                  'serial_no' => $randomSerialNumber,
+                  'gas' => $request->gas,
+                  'water' => $request->water,
+                  'Electric' =>$request->electric,
+                  'telephone' => $request->telephone,
+                  'apartment_type' => $request->apartment_type,
+                  'decoration' => $request->decoration,
+                  'photos' => $request->hasFile('images') ? 1 : 0,
+                  'videos' => $request->hasFile('videos') ? 1 : 0,
+                  'comments' => $request->apartment_comment,
+                  'money' => $money,
+                  'available' => 1,
+                  'complete' => $request->complete,
+              ]);
           switch ($request->apartment_type) {
              case ('sell'):
                   $sell =  new SellApartment();
